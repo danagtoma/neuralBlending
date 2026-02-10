@@ -8,19 +8,16 @@ noRandomPoints = 50000
 noSurfacePoints = 10000
 
 #Read mesh
-mesh = meshio.read("Meshes/armadillo.obj")
-# mesh = meshio.read("Meshes/teapot.obj")
-# mesh = meshio.read("Meshes/happy.obj")
-# mesh = meshio.read("Meshes/bunny.obj")
+mesh = meshio.read("../Code/Meshes/armadillo.obj")
 
 vertsMesh = mesh.points
 facesMesh = mesh.cells_dict["triangle"]
 
 #Normalize mesh
-vertsMeshNorm = (mesh.points - mesh.points.min(axis=0)) / (mesh.points.max(axis=0) - mesh.points.min(axis=0))
+vertsMeshNorm = (mesh.points - mesh.points.min(axis=0)) / (mesh.points.max(axis=0) - mesh.points.min(axis=0)) * 2 - 1
 
 #Random points around mesh
-rand_points = np.random.rand(noRandomPoints, 3)
+rand_points = np.random.uniform(-1, 1, (noRandomPoints, 3))
 #Random poins + mesh vertices
 points = np.vstack([rand_points, vertsMeshNorm])
 
@@ -47,7 +44,7 @@ surfPoint = np.vstack([rand_points, surfPoint])
 
 
 #SDF
-S, _, _, _ = igl.signed_distance(points, vertsMeshNorm, facesMesh)
+# S, _, _, _ = igl.signed_distance(points, vertsMeshNorm, facesMesh)
 S_surf, _, _, _ = igl.signed_distance(surfPoint, vertsMeshNorm, facesMesh)
 
 
@@ -56,11 +53,9 @@ ps.init()
 ps.set_ground_plane_mode("none")
 ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=False)
 
-ps_cloud = ps.register_point_cloud("points", points, radius=0.002, enabled=False)
-ps_cloud.add_scalar_quantity("sdf values", S, enabled=True, cmap='coolwarm')
+# ps_cloud = ps.register_point_cloud("points", points, radius=0.002, enabled=False)
+# ps_cloud.add_scalar_quantity("sdf values", S, enabled=True, cmap='coolwarm')
 
 ps_cloudSurf = ps.register_point_cloud("surface points", surfPoint, radius=0.002)
-ps_cloudSurf.add_scalar_quantity("sdf values", S_surf, enabled=True, cmap='coolwarm')
+ps_cloudSurf.add_scalar_quantity("sdf values", S_surf, enabled=True)
 ps.show()
-
-
