@@ -8,7 +8,7 @@ noRandomPoints = 50000
 noSurfacePoints = 10000
 
 #Read mesh
-mesh = meshio.read("../Code/Meshes/armadillo.obj")
+mesh = meshio.read("Meshes/armadillo.obj")
 
 vertsMesh = mesh.points
 facesMesh = mesh.cells_dict["triangle"]

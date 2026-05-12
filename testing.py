@@ -23,7 +23,7 @@ activation = torch.nn.ReLU()
 
 
 # Loading the model
-model = torch.load("modelGoodFinal.pth")
+model = torch.load("model.pth")
 
 for l, w in zip(layers, model["layers"]):
     l.load_state_dict(w)
@@ -80,7 +80,7 @@ print("meshed saved")
 
 
 #polyscope
-meshOrg = meshio.read("../Code/Meshes/armadillo.obj")
+meshOrg = meshio.read("Meshes/armadillo.obj")
 
 vertsOrg = (meshOrg.points - meshOrg.points.min(axis=0)) / (meshOrg.points.max(axis=0) - meshOrg.points.min(axis=0)) * 2 - 1
 facesOrg = meshOrg.cells_dict["triangle"]
