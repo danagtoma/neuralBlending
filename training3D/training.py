@@ -1,44 +1,40 @@
 import torch
-import numpy as np
-from samplingPoints import surfPoint, S_surf
+from training3D.samplingPoints import surfPoint, S_surf
 
-device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
+# Use the other line if this causes errors
+device = "cuda" if torch.cuda.is_available() else "cpu"
+# device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
+
 print(f"Using {device} device")
 
-pointsTens = torch.from_numpy(surfPoint).float()
-sdTens = torch.from_numpy(S_surf).float()
+pointsTens = torch.from_numpy(surfPoint).float().to(device)
+sdTens = torch.from_numpy(S_surf).float().to(device)
 
 
 # Build NN
 layers = torch.nn.ModuleList()
 
 inDim = 3
-hidden = 128
+hidden = 256
 noLayers = 6
-w0 = 30
-c = 6
 
 for i in range(noLayers):
-    layer = torch.nn.Linear(inDim, hidden)
-    with torch.no_grad(): 
-        if i == 0: layer.weight.uniform_(-1 / inDim, 1 / inDim)
-        else: layer.weight.uniform_(-np.sqrt(c/inDim) / w0, np.sqrt(c/inDim) / w0)
-    
-    layers.append(layer)
+    layers.append(torch.nn.Linear(inDim, hidden))
     inDim = hidden
 
 finalLayer = torch.nn.Linear(hidden, 1)
-with torch.no_grad(): 
-    finalLayer.weight.uniform_(-np.sqrt(c/hidden)/w0, np.sqrt(c/hidden)/w0)
+
+layers.to(device)     
+finalLayer.to(device)
 
 params = list(layers.parameters()) + list(finalLayer.parameters())
 optimizer = torch.optim.Adam(params, 1e-4)
-# activation = torch.sin(w0)   
+activation = torch.nn.ReLU()
 
 
 # Training
 batchSize = 250
-epochs = 50
+epochs = 200
 
 for epoch in range(epochs):
     perm = torch.randperm(pointsTens.shape[0])
@@ -51,7 +47,7 @@ for epoch in range(epochs):
 
         out = x
         for l in layers:
-            out = torch.sin(w0 * l(out))
+            out = activation(l(out))
         pred = finalLayer(out).squeeze()
 
         sdLoss = torch.nn.functional.mse_loss(pred,gt)

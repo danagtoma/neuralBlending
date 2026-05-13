@@ -1,8 +1,11 @@
 import torch
-from weightSamplingPoints2D import allPoint, S_surf, refPoints
+from weightTrainingSiren.weightSamplingPoints2D import allPoint, refPoints
 import numpy as np
 
+# Use the other line if this causes errors
 device = "cuda" if torch.cuda.is_available() else "cpu"
+# device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
+
 print(f"Using {device} device")
 
 #Reference points
@@ -10,31 +13,41 @@ pi = torch.from_numpy(refPoints).float().to(device)
 N = pi.shape[0]
 
 #Training data
-pointsTens = torch.from_numpy(allPoint).float()
-sdTens = torch.from_numpy(np.abs(S_surf)).float()
+pointsTens = torch.from_numpy(allPoint).float().to(device)
 
 
 # Build NN
 layers = torch.nn.ModuleList()
 
 inDim = 2
-hidden = 64
-noLayers = 4
+hidden = 128
+noLayers = 6
+w0 = 5
+c = 6
 
 for i in range(noLayers):
-    layers.append(torch.nn.Linear(inDim, hidden))
+    layer = torch.nn.Linear(inDim, hidden)
+    with torch.no_grad(): 
+        if i == 0: layer.weight.uniform_(-1 / inDim, 1 / inDim)
+        else: layer.weight.uniform_(-np.sqrt(c/inDim) / w0, np.sqrt(c/inDim) / w0)
+    
+    layers.append(layer)
     inDim = hidden
 
 finalLayer = torch.nn.Linear(hidden, N)
+with torch.no_grad(): 
+    finalLayer.weight.uniform_(-np.sqrt(c/hidden)/w0, np.sqrt(c/hidden)/w0)
 softmax = torch.nn.Softmax(dim=-1)
 
+layers.to(device)     
+finalLayer.to(device)
+
 params = list(layers.parameters()) + list(finalLayer.parameters())
-optimizer = torch.optim.Adam(params, 1e-4)
-activation = torch.nn.ReLU()
+optimizer = torch.optim.Adam(params, lr=1e-4)
 
 # Training
-batchSize = 128
-epochs = 100
+batchSize = 256
+epochs = 50
 
 for epoch in range(epochs):
     perm = torch.randperm(pointsTens.shape[0])
@@ -43,20 +56,17 @@ for epoch in range(epochs):
     for i in range(0, pointsTens.shape[0], batchSize):
         idx = perm[i:i+batchSize]
         x = pointsTens[idx].clone().requires_grad_(True)
-        gt = sdTens[idx]
 
         out = x
         for l in layers:
-            out = activation(l(out))
+            out = torch.sin(w0 * l(out))
 
         weights = softmax(finalLayer(out))
 
         dist = torch.norm(x.unsqueeze(1) - pi.unsqueeze(0), dim=2) 
 
-        pred = torch.sum(weights * dist, dim=1)
-        # prob = torch.mean(weights, dim=0)
-     
-
+        pred = torch.sum(weights * dist, dim=1).squeeze()
+       
         loss = torch.mean(pred)
 
         optimizer.zero_grad()

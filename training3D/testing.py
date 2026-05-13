@@ -3,35 +3,28 @@ import numpy as np
 import skimage
 import meshio
 import polyscope as ps
-from samplingPoints import surfPoint, S_surf
+
+# Use the other line if this causes errors
+device = "cuda" if torch.cuda.is_available() else "cpu"
+# device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
 
 # NN architecture
-device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
-
 layers = torch.nn.ModuleList()
 
 inDim = 3
-hidden = 128
+hidden = 256
 noLayers = 6
-w0 = 30
-c = 6
 
 for i in range(noLayers):
-    layer = torch.nn.Linear(inDim, hidden)
-    with torch.no_grad(): 
-        if i == 0: layer.weight.uniform_(-1 / inDim, 1 / inDim)
-        else: layer.weight.uniform_(-np.sqrt(c/inDim) / w0, np.sqrt(c/inDim) / w0)
-    
-    layers.append(layer)
+    layers.append(torch.nn.Linear(inDim, hidden))
     inDim = hidden
 
 finalLayer = torch.nn.Linear(hidden, 1)
-with torch.no_grad(): 
-    finalLayer.weight.uniform_(-np.sqrt(c/hidden)/w0, np.sqrt(c/hidden)/w0)
+activation = torch.nn.ReLU()
 
 
 # Loading the model
-model = torch.load("models/modelSirenArmadillo.pth")
+model = torch.load("model.pth")
 
 for l, w in zip(layers, model["layers"]):
     l.load_state_dict(w)
@@ -61,7 +54,7 @@ with torch.no_grad():
 
             out = pts
             for l in layers:
-                out = torch.sin(w0 * l(out))
+                out = activation(l(out))
             sdf = finalLayer(out)
 
             grid[i,j,:] = sdf.squeeze().cpu().numpy()
@@ -88,7 +81,7 @@ print("meshed saved")
 
 
 #polyscope
-meshOrg = meshio.read("../Meshes/armadillo.obj")
+meshOrg = meshio.read("Meshes/armadillo.obj")
 
 vertsOrg = (meshOrg.points - meshOrg.points.min(axis=0)) / (meshOrg.points.max(axis=0) - meshOrg.points.min(axis=0)) * 2 - 1
 facesOrg = meshOrg.cells_dict["triangle"]

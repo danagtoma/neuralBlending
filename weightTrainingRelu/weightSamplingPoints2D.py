@@ -24,7 +24,7 @@ vertsMeshNorm = (xy - center) / scale
 #Random points around mesh
 rand_points = np.random.uniform(-1.2, 1.2, (noRandomPoints, 2))
 
-#egde sample
+#Egde sample
 def samplingEdgePoints(no):
     be = igl.boundary_facets(facesMesh)
     if isinstance(be, tuple):
@@ -67,7 +67,7 @@ def samplingSurfacePoints(no):
     
     return surfPoint  
 
-#equall spread refpoints
+#Equally spread refpoints
 def farthest_point_sampling(points, k):
     chosen = [np.random.randint(len(points))]
     dist = np.full(len(points), np.inf)
@@ -89,20 +89,15 @@ allPoint = np.vstack([rand_points, surfPoint])
 denseSurf = samplingEdgePoints(5000)
 refPoints = farthest_point_sampling(denseSurf[:, :2], noRefPoints)
 
-#SDF
-S, _, _, _ = igl.signed_distance(rand_points, vertsMeshNorm, facesMesh)
-S_surf, _, _, _ = igl.signed_distance(allPoint, vertsMeshNorm, facesMesh)
-
 #Polyscope
-ps.init()
-ps.set_ground_plane_mode("none")
-ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=True)
+# ps.init()
+# ps.set_ground_plane_mode("none")
+# ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=True)
 
-ps_cloud = ps.register_point_cloud("reference points", refPoints, radius=0.002, enabled=False)
-ps_cloud = ps.register_point_cloud("rand points", rand_points, radius=0.002, enabled=False)
-ps_cloud = ps.register_point_cloud("surface points", surfPoint, radius=0.002, enabled=False)
+# ps_cloud = ps.register_point_cloud("reference points", refPoints, radius=0.002, enabled=False)
+# ps_cloud = ps.register_point_cloud("rand points", rand_points, radius=0.002, enabled=False)
+# ps_cloud = ps.register_point_cloud("surface points", surfPoint, radius=0.002, enabled=False)
 
-ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002)
-ps_cloudSurf.add_scalar_quantity("sdf values", S_surf, enabled=True)
+# ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002)
 
-ps.show()
+# ps.show()

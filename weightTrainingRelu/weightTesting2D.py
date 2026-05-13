@@ -16,7 +16,6 @@ inDim = 2
 hidden = 64
 noLayers = 4
 
-
 for i in range(noLayers):
     layers.append(torch.nn.Linear(inDim, hidden))
     inDim = hidden
