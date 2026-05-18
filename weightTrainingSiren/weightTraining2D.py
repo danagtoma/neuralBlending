@@ -1,6 +1,7 @@
 import torch
 from weightTrainingSiren.weightSamplingPoints2D import allPoint, refPoints
 import numpy as np
+import time
 
 # Use the other line if this causes errors
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -47,7 +48,9 @@ optimizer = torch.optim.Adam(params, lr=1e-4)
 
 # Training
 batchSize = 256
-epochs = 50
+epochs = 500
+
+startTime = time.time()
 
 for epoch in range(epochs):
     perm = torch.randperm(pointsTens.shape[0])
@@ -75,7 +78,10 @@ for epoch in range(epochs):
 
         totalLoss += loss.item()
 
-    print(f"epoch {epoch} loss {totalLoss:.4f}")
+    elapsedTime = time.time() - startTime
+    mins, secs = divmod(elapsedTime, 60)
+
+    print(f"epoch {epoch} loss {totalLoss:.4f} time {int(mins)}m {int(secs)}s")
 
 torch.save({
     "layers": [l.state_dict() for l in layers],
