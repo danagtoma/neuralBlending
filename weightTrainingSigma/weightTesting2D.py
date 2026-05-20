@@ -24,7 +24,6 @@ for i in range(noLayers):
 
 finalLayer = torch.nn.Linear(hidden, N)
 activation = torch.nn.ReLU()
-softmax = torch.nn.Softmax(dim=-1)
 
 # Loading the model
 for l, w in zip(layers, model["layers"]):
@@ -39,6 +38,7 @@ print("model loaded")
 # SDF creation
 resolution = 128
 bound = 1.2
+a = 1.0
 
 xs = np.linspace(-bound, bound, resolution)
 ys = np.linspace(-bound, bound, resolution)
@@ -56,7 +56,15 @@ with torch.no_grad():
     for l in layers:
         out = activation(l(out))
 
-    weights = softmax(finalLayer(out))
+    finalLayerData = finalLayer(out)
+        
+    #Tried both relu and sigmoid as activation on final layer
+    numerator = torch.sigmoid(a * finalLayerData)
+    # numerator = torch.relu(a * finalLayerData)
+    
+    denominator = torch.sum(numerator, dim=-1, keepdim=True)
+
+    weights = numerator / torch.clamp(denominator, min=1e-6)
 
     dist = torch.norm(pts.unsqueeze(1) - pi.unsqueeze(0), dim=2)
         
