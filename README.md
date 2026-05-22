@@ -1,53 +1,3 @@
-<!-- # Neural Distance Fields
-
-run script with  `python -m <folder.script>` (no py at the end)
-
-## Directory Structure
-
-<ul>
-    <li>Meshes: Input meshes </li>
-    <li>training3D: Scripts for training and testing on 3D meshes</li>
-    <li>training2D: Scripts for training and testing on 2D meshes</li>
-    <li>sirenTraining: Scripts for SIREN training and testing.</li>
-    <li>weightTrainingReLu: Scripts for training and testing anchors` weights for 2D meshes using ReLu activation</li>
-    <li>weightTrainingSiren: Scripts for training and testing anchors` weights for 2D meshes using SIREN architecture</li>
-    <li>weightTrainingSigma: Scripts for training and testing anchors` weights for 2D meshes using Sigmoid activation</li>
-</ul>
-
-
-## Some results
-
-##### Reconstructed mesh using unsigned distance fields for 3D meshes with Lipschitz loss
-
-<img src="training3D/img/armadillo.png" width="300">
-
-
-##### Reconstructed mesh using unsigned distance fields at for 2D meshes with Lipschitz loss
-
-<img src="training2D/img/cheval.png" width="300">
-<img src="training2D/img/dauphin.png" width="300">
-<img src="training2D/img/U.png" width="300">
-<img src="training2D/img/Dragon.png" width="300">
-
-
-##### Influence diagram and contours at level 0.2 for anchors' weights trained with softmax activation on last layer
-
-<img src="weightTrainingRelu/img/neural_voronoi_diagram_labeled.png" width="900">
-
-
-##### Influence diagram and contours at level 0.2 for anchors' weights trained with Siren architecture
-
-<img src="weightTrainingSiren/Img/voronoi_diagram_500ep.png" width="900">
-
-
-##### Influence diagram and contours at level 0.2 for anchors' weights trained with ..... on last layer
-
-Using ReLu as the function
-<img src="weightTrainingSigma/img/neural_voronoi_diagram_labeled_U_Relu.png" width="900">
-
-Using Sigmoid as the function
-<img src="weightTrainingSigma/img/neural_voronoi_diagram_labeled_U_sigma.png" width="900"> -->
-
 # Neural Distance Fields
 
 
@@ -86,10 +36,22 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
 #### Trained with SIREN architecture (level: 0.2)
 <img src="weightTrainingSiren/Img/voronoi_diagram_500ep.png" width="900" alt="SIREN Influence Diagram">
 
-#### Trained with normalization formula on final layer
+#### Trained with normalization formula on final layer and Signed distance fields as input
 
 ##### Using ReLU (level: 0.05)
-<img src="weightTrainingSigma/img/neural_voronoi_diagram_labeled_U_Relu.png" width="900" alt="ReLU Influence Diagram">
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_U_Relu.png" width="900" alt="ReLU Influence Diagram">
 
 ##### Using Sigmoid (level: 0.2)
-<img src="weightTrainingSigma/img/neural_voronoi_diagram_labeled_U_sigma.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_U_sigma.png" width="900" alt="Sigmoid Influence Diagram">
+
+#### Trained with normalization formula on final layer and Unsigned distance fields as input
+
+##### Using ReLU (level: 0.2)
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_UDF_relu.png" width="900" alt="ReLU Influence Diagram">
+
+##### Using Sigmoid (level: 0.2)
+###### 500 epochs and 10000 points
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_UDF500_sigma.png" width="900" alt="Sigmoid Influence Diagram">
+
+###### 100 epochs and 100000 points
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_UDF100_sigma.png" width="900" alt="Sigmoid Influence Diagram">

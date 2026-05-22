@@ -59,12 +59,13 @@ with torch.no_grad():
     finalLayerData = finalLayer(out)
         
     #Tried both relu and sigmoid as activation on final layer
-    numerator = torch.sigmoid(a * finalLayerData)
-    # numerator = torch.relu(a * finalLayerData)
+    # numerator = torch.sigmoid(a * finalLayerData)
+    numerator = torch.relu(a * finalLayerData)
     
     denominator = torch.sum(numerator, dim=-1, keepdim=True)
 
-    weights = numerator / torch.clamp(denominator, min=1e-6)
+    # weights = numerator / torch.clamp(denominator, min=1e-6) #for sigmoid
+    weights = numerator / torch.clamp(denominator, min=1)  #for relu
 
     dist = torch.norm(pts.unsqueeze(1) - pi.unsqueeze(0), dim=2)
         

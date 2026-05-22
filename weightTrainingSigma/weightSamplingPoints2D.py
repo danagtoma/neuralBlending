@@ -120,6 +120,22 @@ V_tent, F_tent = extrude_2d_mesh(vertsMeshNorm, facesMesh)
 S_surf, _, _, _ = igl.signed_distance(allPoint, V_tent, F_tent)
 
 
+#UDF
+def unsigned_distance_2d(points, verts, faces):
+    be = igl.boundary_facets(faces)
+    if isinstance(be, tuple):
+        be = be[0]
+    be = np.array(be, dtype=np.int64)
+    
+    sqrUd, _, _ = igl.point_mesh_squared_distance(points, verts, be)
+    
+    udf = np.sqrt(sqrUd)
+    
+    return udf
+
+allPoint = allPoint[:, :2]
+U_surf = unsigned_distance_2d(allPoint, vertsMeshNorm, facesMesh)
+
 denseSurf = samplingEdgePoints(5000)
 refPoints = farthest_point_sampling(denseSurf[:, :2], noRefPoints)
 allPoint = allPoint[:, :2]
@@ -134,6 +150,7 @@ ps_cloud = ps.register_point_cloud("rand points", rand_points, radius=0.002, ena
 ps_cloud = ps.register_point_cloud("surface points", surfPoint, radius=0.002, enabled=False)
 
 ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002)
+ps_cloudSurf.add_scalar_quantity("udf values", U_surf, enabled=True)
 ps_cloudSurf.add_scalar_quantity("sdf values", S_surf, enabled=True)
 
 ps.show()
