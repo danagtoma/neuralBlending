@@ -3,12 +3,12 @@ import meshio
 import numpy as np
 import igl
 
-noRefPoints = 50
+noRefPoints = 100
 noRandomPoints = 8000
 noSurfacePoints = 2000
 
 #Read mesh
-mesh = meshio.read("Meshes/2D/U.obj")
+mesh = meshio.read("Meshes/2D/dauphin.obj")
 
 vertsMesh = mesh.points
 facesMesh = mesh.cells_dict["triangle"]
@@ -90,8 +90,8 @@ def farthest_point_sampling(points, k):
 surfPoint = samplingSurfacePoints(noSurfacePoints)
 
 #Random poins + surface points
-allPoint = np.vstack([rand_points])
-allPoint = np.hstack([allPoint, np.zeros((noRandomPoints, 1))])
+allPoint = np.vstack([rand_points, surfPoint])
+allPoint = np.hstack([allPoint, np.zeros((noRandomPoints + noSurfacePoints, 1))])
 
 def extrude_2d_mesh(verts, faces):
     be = igl.boundary_facets(faces)
