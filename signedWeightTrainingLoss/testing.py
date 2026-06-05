@@ -16,9 +16,8 @@ normals = model["reference_normals"].to(device)
 layers = torch.nn.ModuleList()
 
 inDim = 2
-hidden = 256
-noLayers = 2
-
+hidden = 64
+noLayers = 4
 for i in range(noLayers):
     layers.append(torch.nn.Linear(inDim, hidden))
     inDim = hidden

@@ -4,8 +4,8 @@ import numpy as np
 import igl
 
 noRefPoints = 100
-noRandomPoints = 8000
-noSurfacePoints = 2000
+noRandomPoints = 2000
+noSurfacePoints = 8000
 
 #Read mesh
 mesh = meshio.read("Meshes/2D/dauphin.obj")
@@ -72,7 +72,17 @@ def samplingSurfacePoints(no):
         u,v = np.random.rand(2)
         surfPoint[i, :] = A + (1 - np.sqrt(u))*(B - A) + v*np.sqrt(u)*(C - A)
     
-    return surfPoint  
+    return surfPoint 
+
+def samplingBoundaryPoints(no, noise_ratio=0.875, sigma=0.01):
+    edgePoints, _ = samplingEdgePoints(no)
+    
+    num_noise = int(no * noise_ratio)
+
+    noise = np.random.normal(0, sigma, (num_noise, 2))
+    edgePoints[:num_noise] += noise
+    
+    return edgePoints 
 
 #Equally spread refpoints
 def farthest_point_sampling(points, k):
@@ -87,7 +97,7 @@ def farthest_point_sampling(points, k):
 
     return chosen
 
-surfPoint = samplingSurfacePoints(noSurfacePoints)
+surfPoint = samplingBoundaryPoints(noSurfacePoints)
 
 #Random poins + surface points
 allPoint = np.vstack([rand_points, surfPoint])
@@ -130,16 +140,16 @@ refNormals = denseNormals[anchor_indices]
 allPoint = allPoint[:, :2]
 
 #Polyscope
-# ps.init()
-# ps.set_ground_plane_mode("none")
-# ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=True)
+ps.init()
+ps.set_ground_plane_mode("none")
+ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=True)
 
-# ps_cloud = ps.register_point_cloud("reference points", refPoints, radius=0.002, enabled=True)
-# ps_cloud.add_vector_quantity("anchor normals", refNormals, enabled=True)
-# ps_cloud = ps.register_point_cloud("rand points", rand_points, radius=0.002, enabled=False)
-# ps_cloud = ps.register_point_cloud("surface points", surfPoint, radius=0.002, enabled=False)
+ps_cloud = ps.register_point_cloud("reference points", refPoints, radius=0.002, enabled=True)
+ps_cloud.add_vector_quantity("anchor normals", refNormals, enabled=True)
+ps_cloud = ps.register_point_cloud("rand points", rand_points, radius=0.002, enabled=False)
+ps_cloud = ps.register_point_cloud("surface points", surfPoint, radius=0.002, enabled=False)
 
-# ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002)
-# ps_cloudSurf.add_scalar_quantity("sdf values", S_surf, enabled=True)
+ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002)
+ps_cloudSurf.add_scalar_quantity("sdf values", S_surf, enabled=True)
 
-# ps.show()
+ps.show()
