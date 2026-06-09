@@ -57,6 +57,14 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
       - [2. 500 anchors](#2-500-anchors-1)
   - [Comparison](#comparison)
   - [Experiments](#experiments)
+- [Experiments with sigmoid activation function](#experiments-with-sigmoid-activation-function)
+- [Experiments with sin activation function](#experiments-with-sin-activation-function)
+    - [A. Diferent architecture dimensions](#a-diferent-architecture-dimensions)
+    - [B. Different values for w0](#b-different-values-for-w0)
+    - [C. Different number of anchors](#c-different-number-of-anchors)
+    - [D. Lower lambda factor](#d-lower-lambda-factor)
+    - [E. Best result](#e-best-result)
+    - [F. Other meshes](#f-other-meshes)
 
 
 ## Directory Structure
@@ -75,7 +83,7 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
 ---
 
 ### Reconstructed 3D meshes (unsigned distance field with Lipschitz loss)
-<img src="training3D/img/armadillo.png" width="300" alt="Reconstructed Armadillo 3D Mesh">
+<img src="training3D/img/armadillo.png" width="400" alt="Reconstructed Armadillo 3D Mesh">
 
 ### Reconstructed 2D meshes (unsigned distance field with Lipschitz loss)
 <p align="left">
@@ -99,9 +107,9 @@ Best result with:
 * number of anchors: 35
 
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="weightTrainingRelu/img/neural_voronoi_diagram_labeled.png" width="900">
+<img src="weightTrainingRelu/img/neural_voronoi_diagram_labeled.png" width="400">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="weightTrainingRelu/img/anchor_influence_grid.png" width="900">
+<img src="weightTrainingRelu/img/anchor_influence_grid.png" width="400">
 
 
 #### 1.1 Trained with SIREN architecture (level: 0.2)
@@ -117,9 +125,9 @@ Best result with:
 * number of anchors: 100
 
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="weightTrainingSiren/Img/voronoi_diagram_500ep.png" width="900" alt="SIREN Influence Diagram">
+<img src="weightTrainingSiren/Img/voronoi_diagram_500ep.png" width="400" alt="SIREN Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="weightTrainingSiren/Img/anchor_influence_grid_500ep.png" width="900">
+<img src="weightTrainingSiren/Img/anchor_influence_grid_500ep.png" width="400">
 
 #### 2. Trained with normalization formula on final layer and Signed distance fields as input
 [Link to code](weightTrainingSigma)
@@ -135,9 +143,9 @@ Best result with:
 * number of anchors: 50
 
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="weightTrainingSigma/img/neural_voronoi_diagram_U_Relu.png" width="900" alt="ReLU Influence Diagram">
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_U_Relu.png" width="400" alt="ReLU Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="weightTrainingSigma/img/anchor_influence_grid_U_Relu.png" width="900" alt="ReLU Influence Diagram">
+<img src="weightTrainingSigma/img/anchor_influence_grid_U_Relu.png" width="400" alt="ReLU Influence Diagram">
 
 ##### Using Sigmoid (level: 0.2)
 Best result with:
@@ -149,9 +157,9 @@ Best result with:
 * number of anchors: 50
 
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="weightTrainingSigma/img/neural_voronoi_diagram_U_sigma.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_U_sigma.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="weightTrainingSigma/img/anchor_influence_grid_U_Sigma.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="weightTrainingSigma/img/anchor_influence_grid_U_Sigma.png" width="400" alt="Sigmoid Influence Diagram">
 
 #### 3. Trained with normalization formula on final layer and Unsigned distance fields as input
 [Link to code](weightTrainingSigma)
@@ -166,9 +174,9 @@ Best result with:
 * number of anchors: 50
 
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="weightTrainingSigma/img/neural_voronoi_diagram_UDF_Relu.png" width="900" alt="ReLU Influence Diagram">
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_UDF_Relu.png" width="400" alt="ReLU Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="weightTrainingSigma/img/anchor_influence_grid_UDF_Relu.png" width="900" alt="ReLU Influence Diagram">
+<img src="weightTrainingSigma/img/anchor_influence_grid_UDF_Relu.png" width="400" alt="ReLU Influence Diagram">
 
 ##### Using Sigmoid (level: 0.2)
 Best result with:
@@ -182,15 +190,15 @@ Best result with:
 
 ###### 500 epochs and 10000 points
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="weightTrainingSigma/img/neural_voronoi_diagram_UDF500_sigma.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_UDF500_sigma.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="weightTrainingSigma/img/anchor_influence_grid_UDF500.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="weightTrainingSigma/img/anchor_influence_grid_UDF500.png" width="400" alt="Sigmoid Influence Diagram">
 
 ###### 100 epochs and 100000 points
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="weightTrainingSigma/img/neural_voronoi_diagram_UDF100_sigma.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="weightTrainingSigma/img/neural_voronoi_diagram_UDF100_sigma.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="weightTrainingSigma/img/anchor_influence_grid_UDF100.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="weightTrainingSigma/img/anchor_influence_grid_UDF100.png" width="400" alt="Sigmoid Influence Diagram">
 
 ---
 ## Training Signed Distance Fields
@@ -206,9 +214,9 @@ Best result with:
 * number of anchors: 50
 
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="signedWeightTraining/img/neural_voronoi_diagram_U.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTraining/img/neural_voronoi_diagram_U.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="signedWeightTraining/img/anchor_influence_grid.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTraining/img/anchor_influence_grid.png" width="400" alt="Sigmoid Influence Diagram">
 
 #### 2. Trained with normalization formula on final layer using Sigmoid
 [Link to code](signedWeightTrainingSigma)
@@ -221,9 +229,9 @@ Best result with:
 * number of anchors: 50
 
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="signedWeightTrainingSigma/img/neural_voronoi_diagram_U.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingSigma/img/neural_voronoi_diagram_U.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="signedWeightTrainingSigma/img/anchor_influence_grid.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingSigma/img/anchor_influence_grid.png" width="400" alt="Sigmoid Influence Diagram">
 
 #### 3. Trained with normalization formula on final layer using Softmax and loss function
 [Link to code](signedWeightTrainingLoss)
@@ -238,29 +246,29 @@ Best result with:
 
 ###### 50 anchors
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/neural_voronoi_diagram_labeled_50.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/neural_voronoi_diagram_labeled_50.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/anchor_influence_grid_50.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/anchor_influence_grid_50.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Anchor * Distance Influence Grids</p>
-<img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/weightDist_influence_grid_50.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/weightDist_influence_grid_50.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Anchor Influence per Point</p>
-<img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/anchor_influence_count_50.png" width="500" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/anchor_influence_count_50.png" width="400" alt="Sigmoid Influence Diagram">
 
 
 ###### 15 anchors
 <p align="center">Reconstructed Mesh Contour and Neural Voronoi Regions</p>
-<img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/neural_voronoi_diagram_labeled_15.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/neural_voronoi_diagram_labeled_15.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Individual Anchor Influence Grids</p>
-<img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/anchor_influence_grid_15.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/anchor_influence_grid_15.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Anchor * Distance Influence Grids</p>
-<img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/weightDist_influence_grid_15.png" width="900" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/weightDist_influence_grid_15.png" width="400" alt="Sigmoid Influence Diagram">
 <p align="center">Anchor Influence per Point</p>
-<img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/anchor_influence_count_15.png" width="500" alt="Sigmoid Influence Diagram">
+<img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/anchor_influence_count_15.png" width="400" alt="Sigmoid Influence Diagram">
 
 
 ---
 ## Experiments for better contours
-Experiments done for signed fields with Softmax on final layer.
+Experiments done for signed fields with Softmax on final layer and Relu as activation function.
 
 ### U mesh
 
@@ -278,12 +286,12 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/neural_voronoi_diagram_labeled_15.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/15 anchors/100 epochs/neural_voronoi_diagram_labeled_15.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/15 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/15 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
@@ -294,17 +302,17 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/neural_voronoi_diagram_labeled_50.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/neural_voronoi_diagram_labeled_50.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>500 epochs</b>
   </div>
 
@@ -315,12 +323,12 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/200 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/200 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/200 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/200 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
@@ -339,22 +347,22 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epochs 0.1 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epochs 0.1 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>0.1 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.5 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/neural_voronoi_diagram_labeled_50.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch/neural_voronoi_diagram_labeled_50.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>1.0 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch 1.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/100 epoch 1.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>1.5 lm</b>
   </div>
 
@@ -364,12 +372,12 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/300 epoch 0.9 lm - best/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/300 epoch 0.9 lm - best/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>0.9 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/300 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/300 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>1.0 lm</b>
   </div>
 
@@ -392,12 +400,12 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/50 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/50 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/50 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/50 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
@@ -408,17 +416,17 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>500 epochs</b>
   </div>
 
@@ -429,12 +437,12 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/200 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/200 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/200 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/200 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
@@ -453,22 +461,22 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs 0.0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs 0.0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>0 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.5 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs 0.5 lm 0.01 h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs 0.5 lm 0.01 h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>0.5 lm and 0.01 h</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>1 lm</b>
   </div>
 
@@ -478,22 +486,22 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs 0.1 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs 0.1 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>0.1 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.5 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.9 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>1 lm</b>
   </div>
 
@@ -503,12 +511,12 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/500 epochs 0.5 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/500 epochs 0.5 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>0.5 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/500 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/500 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>1 lm</b>
   </div>
 
@@ -533,17 +541,17 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/300 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/300 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/300 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/300 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>500 epochs</b>
   </div>
 
@@ -554,12 +562,12 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/500 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/500 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
 <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/500 anchors/300 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/500 anchors/300 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
@@ -578,22 +586,22 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs 0.0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs 0.0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>0 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.5 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.9 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>1 lm</b>
   </div>
 
@@ -615,17 +623,17 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/100 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/100 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/100 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/100 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/100 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/100 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>500 epochs</b>
   </div>
 
@@ -636,17 +644,17 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>500 epochs</b>
   </div>
 
@@ -657,17 +665,17 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/100 epochs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>300 epochs</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/500 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>500 epochs</b>
   </div>
 
@@ -687,27 +695,27 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>0 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.5 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.9 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>1 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 1.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 1.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>1.5 lm</b>
   </div>
 
@@ -717,17 +725,17 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/300 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/300 epochs 0.5 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.5 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>0.9 lm</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/500 anchors/300 epochs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>1 lm</b>
   </div>
 
@@ -755,19 +763,19 @@ Dragon: 300 anchors
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/U/50 anchors/300 epoch 0.9 lm - best/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/U/50 anchors/300 epoch 0.9 lm - best/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dolphin/100 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/horse/300 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/dragon/300 anchors/300 epochs 0.9 lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
   </div>
 
 </div>
@@ -786,7 +794,7 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/tests/100 a, 100 e, 256 hidden, 2 layers/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/tests/100 a, 100 e, 256 hidden, 2 layers/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>(1)</b>
   </div>
   <div>
@@ -801,7 +809,7 @@ Architecture:
   </div> 
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/tests/100 a, 100 e, 64 hidden, 6 layers/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/tests/100 a, 100 e, 64 hidden, 6 layers/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>(2)</b>
   </div>
   <div>
@@ -816,7 +824,7 @@ Architecture:
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/tests/14K, 100 a, 100 e, 0.5 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/tests/14K, 100 a, 100 e, 0.5 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>(3)</b>
   </div>
   <div>
@@ -832,7 +840,7 @@ Architecture:
 
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/tests/14K, 100 a, 100 e, 1.0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/tests/14K, 100 a, 100 e, 1.0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>(4)</b>
   </div>
   <div>
@@ -847,7 +855,7 @@ Architecture:
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingLoss/img/tests/100k, 100 a, 100 e, 1.0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 600px;" /><br/>
+    <img src="signedWeightTrainingLoss/img/tests/100k, 100 a, 100 e, 1.0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>(5)</b>
   </div>
   <div>
@@ -863,8 +871,8 @@ Architecture:
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/neural_voronoi_diagram_labeled.png.png"  style="width: 100%; max-width: 600px;" /><br/>
-    <b>(6) Modified activation function</b>
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>(6)</b>
   </div>
   <div>
     (6) architecture: 
@@ -879,4 +887,296 @@ Architecture:
     </ul>
   </div>
   
+</div>
+
+## Experiments with sigmoid activation function
+Experiments done for signed fields with sigmoid function on final layer
+
+Architecture:
+* noRefPoints = 100
+* noRandomPoints = 2000
+* noSurfacePoints = 8000
+* inDim = 2
+* hidden = 64
+* noLayers = 4
+* batchSize = 128
+* epochs = 300
+* lm = 1.0
+* sigma = 0.01
+* h = 0.2
+* 
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Voronoi diagram and countours</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/anchor_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>Anchors influence</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/weightDist_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>W*Dist</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/anchor_influence_count.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>Number of contributing anchors per point</b>
+  </div>
+
+</div>
+
+
+## Experiments with sin activation function
+Experiments done for signed fields with Softmax on final layer and sin function as activation layer (like SIREN architecture)
+
+#### A. Diferent architecture dimensions
+
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* lm = 1.0
+* w0 = 30.0
+* c = 6.0
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* noRefPoints = 100
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/64h 4l 128bs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>(1)</b>
+  </div>
+  <div>
+    (1) architecture: 
+    <ul>
+      <li>hidden = 64</li>
+      <li>noLayers = 4</li>
+      <li>batchSize = 128</li>
+      <li>epochs = 100</li>
+    </ul>
+  </div> 
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/128h 6l 300e 250bs/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>(2)</b>
+  </div>
+  <div>
+    (2) architecture: 
+    <ul>
+      <li>hidden = 128</li>
+      <li>noLayers = 6</li>
+      <li>batchSize = 250</li>
+      <li>epochs = 300</li>
+    </ul>
+  </div>
+
+ <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 100a 1000e 0.1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>(3)</b>
+  </div>
+  <div>
+    (3) architecture: 
+    <ul>
+      <li>hidden = 128</li>
+      <li>noLayers = 6</li>
+      <li>batchSize = 250</li>
+      <li>epochs = 1000</li>
+    </ul>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/256w 8l 300e/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>(4)</b>
+  </div>
+  <div>
+    (4) architecture: 
+    <ul>
+      <li>hidden = 256</li>
+      <li>noLayers = 8</li>
+      <li>batchSize = 250</li>
+      <li>epochs = 300</li>
+    </ul>
+  </div>
+  
+</div>
+
+#### B. Different values for w0
+
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* lm = 1.0
+* c = 6.0
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* noRefPoints = 100
+* hidden = 128
+* noLayers = 6
+* batchSize = 250
+* epochs = 300
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>5 w0</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/15w/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>15 w0</b>
+  </div>
+
+</div>
+
+
+#### C. Different number of anchors
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* lm = 1.0
+* w0 = 5.0
+* c = 6.0
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* hidden = 128
+* noLayers = 6
+* batchSize = 250
+* epochs = 300
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 10a 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>10 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 30a 1lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>30 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 50a 1lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 anchors</b>
+  </div>
+
+</div>
+
+
+#### D. Lower lambda factor
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* w0 = 5.0
+* c = 6.0
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* noRefPoints = 30
+* hidden = 128
+* noLayers = 6
+* batchSize = 250
+* epochs = 300
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 30a 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 30a 0.1lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>0.1 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 30e 0.5lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>0.5 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 30a 1lm/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 lm</b>
+  </div>
+
+</div>
+
+#### E. Best result
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* lm = 0.1
+* w0 = 5.0
+* c = 6.0
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* noRefPoints = 30
+* hidden = 128
+* noLayers = 6
+* batchSize = 250
+* epochs = 300
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 30a 0.1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Voronoi diagram and countours</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 30a 0.1lm/anchor_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>Anchors influence</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 30a 0.1lm/weightDist_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>W*Dist</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 30a 0.1lm/anchor_influence_count.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>Number of contributing anchors per point</b>
+  </div>
+
+</div>
+
+#### F. Other meshes
+
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* lm = 0.1
+* w0 = 5.0
+* c = 6.0
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* noRefPoints = 30
+* hidden = 128
+* noLayers = 6
+* batchSize = 250
+* epochs = 300
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/U/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>U</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/horse/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>Horse</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/dragon/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>Dragon</b>
+  </div>
+
 </div>
