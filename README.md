@@ -891,6 +891,7 @@ Architecture:
 
 ## Experiments with sigmoid activation function
 Experiments done for signed fields with sigmoid function on final layer
+[Link to code](signedWeightTrainingSigmaLoss)
 
 Architecture:
 * noRefPoints = 100
@@ -904,7 +905,7 @@ Architecture:
 * lm = 1.0
 * sigma = 0.01
 * h = 0.2
-* 
+  
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
@@ -932,6 +933,7 @@ Architecture:
 
 ## Experiments with sin activation function
 Experiments done for signed fields with Softmax on final layer and sin function as activation layer (like SIREN architecture)
+[Link to code](sineTrainingLoss)
 
 #### A. Diferent architecture dimensions
 
