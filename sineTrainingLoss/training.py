@@ -1,5 +1,5 @@
 import torch
-from sinTrainingLoss.samplingPoints2D import allPoint, refPoints, refNormals, S_surf
+from sineTrainingLoss.samplingPoints2D import allPoint, refPoints, refNormals, S_surf
 import numpy as np
 import time
 
@@ -52,7 +52,7 @@ activation = torch.nn.ReLU()
 
 # Training
 batchSize = 250
-epochs = 1000
+epochs = 300
 lm = 0.1
 sigma = 0.01
 h = 0.2

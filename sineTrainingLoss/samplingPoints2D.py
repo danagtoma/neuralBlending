@@ -3,7 +3,7 @@ import meshio
 import numpy as np
 import igl
 
-noRefPoints = 100
+noRefPoints = 3
 noRandomPoints = 2000
 noSurfacePoints = 8000
 

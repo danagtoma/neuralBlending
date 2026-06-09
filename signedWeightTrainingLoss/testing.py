@@ -39,6 +39,7 @@ print("model loaded")
 # SDF creation
 resolution = 128
 bound = 1.2
+h_network = 0.2
 
 xs = np.linspace(-bound, bound, resolution)
 ys = np.linspace(-bound, bound, resolution)
@@ -56,7 +57,9 @@ with torch.no_grad():
     for l in layers:
         out = activation(l(out))
 
-    weights = softmax(finalLayer(out))
+    logits = finalLayer(out)
+    raw_gaussian_weights = torch.exp(-((logits / h_network) ** 2))
+    weights = raw_gaussian_weights / (torch.sum(raw_gaussian_weights, dim=-1, keepdim=True) + 1e-8 )
 
     dist = pts.unsqueeze(1) - pi.unsqueeze(0)
     sdfDist = torch.sum(dist * normals, dim=2) 
@@ -145,7 +148,7 @@ for j in range(i + 1, len(axes)):
 
 plt.tight_layout()
 plt.savefig("anchor_influence_grid.png", dpi=300)
-plt.show()
+
 
 # weight*dist influence plot
 
@@ -185,7 +188,7 @@ for j in range(i + 1, len(axes)):
 
 plt.tight_layout(pad=2.0)
 plt.savefig("weightDist_influence_grid.png", dpi=300)
-plt.show()
+
 
 
 #number of anchors that influnece a point
@@ -214,4 +217,4 @@ ax.set_xlabel("X")
 ax.set_ylabel("Y")
 
 plt.savefig("anchor_influence_count.png", dpi=300, bbox_inches='tight')
-plt.show()
+print("done")

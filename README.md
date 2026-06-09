@@ -65,6 +65,10 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
     - [D. Lower lambda factor](#d-lower-lambda-factor)
     - [E. Best result](#e-best-result)
     - [F. Other meshes](#f-other-meshes)
+- [Experiments with Gaussian activation function](#experiments-with-gaussian-activation-function)
+    - [100 epochs](#100-epochs)
+    - [300 epochs](#300-epochs)
+    - [500 epochs](#500-epochs)
 
 
 ## Directory Structure
@@ -869,23 +873,6 @@ Architecture:
       <li>batchSize = 256</li>
     </ul>
   </div>
-
-  <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
-    <b>(6)</b>
-  </div>
-  <div>
-    (6) architecture: 
-    <ul>
-      <li>hidden = 64</li>
-      <li>noLayers = 4</li>
-      <li>lm = 1.0</li>
-      <li>noRandomPoints = 8000</li>
-      <li>noSurfacePoints = 2000</li>
-      <li>epochs = 300</li>
-      <li>noRefPoints = 100</li>
-    </ul>
-  </div>
   
 </div>
 
@@ -1054,6 +1041,11 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/5w 3a 0.1lm 300e/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>3 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
     <img src="sineTrainingLoss/img/5w 10a 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>10 anchors</b>
   </div>
@@ -1179,6 +1171,69 @@ Architecture:
   <div style="text-align: center; margin-bottom: 30px;">
     <img src="sineTrainingLoss/img/dragon/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>Dragon</b>
+  </div>
+
+</div>
+
+
+## Experiments with Gaussian activation function
+Experiments done for signed fields with a Gaussian function on final layer
+[Link to code](signedWeightTrainingLoss)
+
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* lm = 1.0
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* hidden = 64
+* noLayers = 4
+* batchSize = 128
+
+#### 100 epochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dolphin/Gaussian/100a 100e 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors</b>
+  </div>
+
+</div>
+
+#### 300 epochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dolphin/Gaussian/10a 300e 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>10 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dolphin/Gaussian/50a 300e 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dolphin/Gaussian/100a 300e 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors</b>
+  </div>
+
+</div>
+
+#### 500 epochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dolphin/Gaussian/50a 500e 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dolphin/Gaussian/100a 500e 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors</b>
   </div>
 
 </div>
