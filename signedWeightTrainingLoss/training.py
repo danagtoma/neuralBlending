@@ -45,7 +45,7 @@ epochs = 300
 lm = 1.0
 sigma = 0.01
 h = 0.2
-h_network = 0.2
+hGauss = 0.2
 
 startTime = time.time()
 
@@ -65,7 +65,7 @@ for epoch in range(epochs):
 
         #Gaussian weights
         # logits = finalLayer(out)
-        # raw_gaussian_weights = torch.exp(-((logits / h_network) ** 2))
+        # raw_gaussian_weights = torch.exp(-((logits / hGauss) ** 2))
         # weights = raw_gaussian_weights / (torch.sum(raw_gaussian_weights, dim=-1, keepdim=True) + 1e-8)
 
         weights = softmax(finalLayer(out)) 
@@ -89,7 +89,7 @@ for epoch in range(epochs):
             
         #Gaussian weights
         # logits_local = finalLayer(out_local)
-        # raw_gaussian_local = torch.exp(-((logits_local / h_network) ** 2))
+        # raw_gaussian_local = torch.exp(-((logits_local / hGauss) ** 2))
         # weights_local = raw_gaussian_local / (torch.sum(raw_gaussian_local, dim=-1, keepdim=True) + 1e-8)
 
         weights_local = softmax(finalLayer(out_local))

@@ -909,22 +909,22 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300 e sigmoid/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300e sigmoid/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>Voronoi diagram and countours</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300 e sigmoid/anchor_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300e sigmoid/anchor_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>Anchors influence</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300 e sigmoid/weightDist_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300e sigmoid/weightDist_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>W*Dist</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300 e sigmoid/anchor_influence_count.png" style="width: 100%; max-width: 400px;" /><br/>
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300e sigmoid/anchor_influence_count.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>Number of contributing anchors per point</b>
   </div>
 
@@ -1207,6 +1207,7 @@ Architecture:
 * hidden = 64
 * noLayers = 4
 * batchSize = 128
+* hGauss = 0.2
 
 #### 100 epochs
 
@@ -1280,6 +1281,7 @@ Architecture:
 * noLayers = 4
 * batchSize = 128
 * epochs = 100
+* lm = 0
 
 ### U mesh
 

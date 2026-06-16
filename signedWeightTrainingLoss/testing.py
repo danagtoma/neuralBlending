@@ -40,7 +40,7 @@ print("model loaded")
 # SDF creation
 resolution = 128
 bound = 1.2
-h_network = 0.2
+hGauss = 0.2
 
 xs = np.linspace(-bound, bound, resolution)
 ys = np.linspace(-bound, bound, resolution)
@@ -60,7 +60,7 @@ with torch.no_grad():
 
     #Gaussian weights
     # logits = finalLayer(out)
-    # raw_gaussian_weights = torch.exp(-((logits / h_network) ** 2))
+    # raw_gaussian_weights = torch.exp(-((logits / hGauss) ** 2))
     # weights = raw_gaussian_weights / (torch.sum(raw_gaussian_weights, dim=-1, keepdim=True) + 1e-8 )
 
     weights = softmax(finalLayer(out)) 
