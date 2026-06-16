@@ -69,6 +69,19 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
     - [100 epochs](#100-epochs)
     - [300 epochs](#300-epochs)
     - [500 epochs](#500-epochs)
+- [Experiments with cross-entropy loss](#experiments-with-cross-entropy-loss)
+  - [U mesh](#u-mesh-1)
+    - [A. Changing number of anchors - 50 ceEpochs](#a-changing-number-of-anchors---50-ceepochs)
+    - [B. Changing number of ceEpochs - 20 anchors](#b-changing-number-of-ceepochs---20-anchors)
+  - [Dolphin mesh](#dolphin-mesh-1)
+    - [A. Changing number of anchors - 50 ceEpochs](#a-changing-number-of-anchors---50-ceepochs-1)
+    - [B. Changing number of ceEpochs - 100 anchors](#b-changing-number-of-ceepochs---100-anchors)
+  - [Horse mesh](#horse-mesh-1)
+    - [A. Changing number of anchors - 50 ceEpochs](#a-changing-number-of-anchors---50-ceepochs-2)
+    - [B. Changing number of ceEpochs - 100 anchors](#b-changing-number-of-ceepochs---100-anchors-1)
+  - [Dragon mesh](#dragon-mesh-1)
+    - [A. Changing number of anchors - 50 ceEpochs](#a-changing-number-of-anchors---50-ceepochs-3)
+    - [B. Changing number of ceEpochs - 200 anchors](#b-changing-number-of-ceepochs---200-anchors)
 
 
 ## Directory Structure
@@ -346,7 +359,7 @@ Architecture:
 * h = 0.2
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 50
+* anchors = 50
 
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
@@ -459,7 +472,7 @@ Architecture:
 * h = 0.2
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 100
+* anchors = 100
 
 ##### 1. 100 epochs
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
@@ -584,7 +597,7 @@ Architecture:
 * h = 0.2
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 300
+* anchors = 300
 
 ##### 1. 300 epochs
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
@@ -693,7 +706,7 @@ Architecture:
 * h = 0.2
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 300
+* anchors = 300
 
 ##### 1. 300 anchors
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
@@ -756,7 +769,7 @@ Architecture:
 * h = 0.2
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 300
+* anchors = 300
 * lm = 0.9
 
 U: 50 anchors
@@ -792,7 +805,7 @@ Architecture:
 * batchSize = 128
 * sigma = 0.01
 * h = 0.2
-* noRefPoints = 100
+* anchors = 100
 * epochs = 100
 
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
@@ -881,7 +894,7 @@ Experiments done for signed fields with sigmoid function on final layer
 [Link to code](signedWeightTrainingSigmaLoss)
 
 Architecture:
-* noRefPoints = 100
+* anchors = 100
 * noRandomPoints = 2000
 * noSurfacePoints = 8000
 * inDim = 2
@@ -896,22 +909,22 @@ Architecture:
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300 e sigmoid/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>Voronoi diagram and countours</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/anchor_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300 e sigmoid/anchor_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>Anchors influence</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/weightDist_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300 e sigmoid/weightDist_influence_grid.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>W*Dist</b>
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
-    <img src="signedWeightTrainingSigmaLoss/img/testing/100a, 300 e/anchor_influence_count.png" style="width: 100%; max-width: 400px;" /><br/>
+    <img src="signedWeightTrainingSigmaLoss/img/testing/100a 300 e sigmoid/anchor_influence_count.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>Number of contributing anchors per point</b>
   </div>
 
@@ -932,7 +945,7 @@ Architecture:
 * c = 6.0
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 100
+* anchors = 100
 
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
   
@@ -1003,7 +1016,7 @@ Architecture:
 * c = 6.0
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 100
+* anchors = 100
 * hidden = 128
 * noLayers = 6
 * batchSize = 250
@@ -1019,6 +1032,11 @@ Architecture:
   <div style="text-align: center; margin-bottom: 30px;">
     <img src="sineTrainingLoss/img/15w/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
     <b>15 w0</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/128h 6l 300e 250bs/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>30 w0</b>
   </div>
 
 </div>
@@ -1071,7 +1089,7 @@ Architecture:
 * c = 6.0
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 30
+* anchors = 30
 * hidden = 128
 * noLayers = 6
 * batchSize = 250
@@ -1110,7 +1128,7 @@ Architecture:
 * c = 6.0
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 30
+* anchors = 30
 * hidden = 128
 * noLayers = 6
 * batchSize = 250
@@ -1150,7 +1168,7 @@ Architecture:
 * c = 6.0
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
-* noRefPoints = 30
+* anchors = 30
 * hidden = 128
 * noLayers = 6
 * batchSize = 250
@@ -1199,6 +1217,16 @@ Architecture:
     <b>100 anchors</b>
   </div>
 
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dolphin/Gaussian/100a 100e 0.5lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors and 0.5 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dolphin/Gaussian/100a 100e 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors and 0 lm</b>
+  </div>
+
 </div>
 
 #### 300 epochs
@@ -1234,6 +1262,191 @@ Architecture:
   <div style="text-align: center; margin-bottom: 30px;">
     <img src="signedWeightTrainingLoss/img/dolphin/Gaussian/100a 500e 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 anchors</b>
+  </div>
+
+</div>
+
+
+## Experiments with cross-entropy loss
+Experiments done initialization of the weights with cross-entropy loss.
+[Link to code](signedWeightTrainingCELoss)
+
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* hidden = 64
+* noLayers = 4
+* batchSize = 128
+* epochs = 100
+
+### U mesh
+
+#### A. Changing number of anchors - 50 ceEpochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/U/10a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>10 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/U/15a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>15 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/U/20a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>20 anchors</b>
+  </div>
+
+</div>
+
+#### B. Changing number of ceEpochs - 20 anchors
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/U/20a 100e 20ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>20 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/U/20a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 ceEpochs</b>
+  </div>
+
+</div>
+
+### Dolphin mesh
+
+#### A. Changing number of anchors - 50 ceEpochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/50a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100a 100e 50ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors and 1 lm</b>
+  </div>
+
+</div>
+
+#### B. Changing number of ceEpochs - 100 anchors
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100a 100e 10ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>10 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100a 100e 20ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>20 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 ceEpochs</b>
+  </div>
+
+</div>
+
+### Horse mesh
+
+#### A. Changing number of anchors - 50 ceEpochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/50a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/100a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/150a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>150 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/100a 100e 50ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors and 1 lm</b>
+  </div>
+
+</div>
+
+#### B. Changing number of ceEpochs - 100 anchors
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/100a 100e 20ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>20 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/100a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 ceEpochs</b>
+  </div>
+
+</div>
+
+### Dragon mesh
+
+#### A. Changing number of anchors - 50 ceEpochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/100a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/150a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>150 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>200 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 50ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>200 anchors and 1 lm</b>
+  </div>
+
+</div>
+
+#### B. Changing number of ceEpochs - 200 anchors
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 20ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>20 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 ceEpochs</b>
   </div>
 
 </div>

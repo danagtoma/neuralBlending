@@ -2,6 +2,7 @@ import torch
 from signedWeightTrainingLoss.samplingPoints2D import allPoint, refPoints, refNormals, S_surf
 import numpy as np
 import time
+from entmax import sparsemax, entmax15
 
 # Use the other line if this causes errors
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -62,9 +63,15 @@ for epoch in range(epochs):
         for l in layers:
             out = activation(l(out))
 
-        logits = finalLayer(out)
-        raw_gaussian_weights = torch.exp(-((logits / h_network) ** 2))
-        weights = raw_gaussian_weights / (torch.sum(raw_gaussian_weights, dim=-1, keepdim=True) + 1e-8)
+        #Gaussian weights
+        # logits = finalLayer(out)
+        # raw_gaussian_weights = torch.exp(-((logits / h_network) ** 2))
+        # weights = raw_gaussian_weights / (torch.sum(raw_gaussian_weights, dim=-1, keepdim=True) + 1e-8)
+
+        weights = softmax(finalLayer(out)) 
+
+        #sparsemax
+        # weights = entmax15(finalLayer(out)) 
 
         dist = x.unsqueeze(1) - pi.unsqueeze(0)
         sdfDist = torch.sum(dist * normals, dim=2) 
@@ -79,9 +86,16 @@ for epoch in range(epochs):
         out_local = x_i
         for l in layers:
             out_local = activation(l(out_local))
-        logits_local = finalLayer(out_local)
-        raw_gaussian_local = torch.exp(-((logits_local / h_network) ** 2))
-        weights_local = raw_gaussian_local / (torch.sum(raw_gaussian_local, dim=-1, keepdim=True) + 1e-8)
+            
+        #Gaussian weights
+        # logits_local = finalLayer(out_local)
+        # raw_gaussian_local = torch.exp(-((logits_local / h_network) ** 2))
+        # weights_local = raw_gaussian_local / (torch.sum(raw_gaussian_local, dim=-1, keepdim=True) + 1e-8)
+
+        weights_local = softmax(finalLayer(out_local))
+
+        #sparsemax
+        # weights_local = entmax15(finalLayer(out_local)) 
 
         w_i_xi = torch.diagonal(weights_local) 
         

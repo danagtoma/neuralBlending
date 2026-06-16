@@ -67,7 +67,8 @@ for epoch in range(epochs):
         # numerator = torch.relu(finalLayerData)
 
         denominator = torch.sum(numerator, dim=-1, keepdim=True)
-        weights = numerator / torch.clamp(denominator, min=1e-6)
+        weights = numerator / torch.clamp(denominator, min=1e-6) #for sigmoid
+        # weights = numerator / torch.clamp(denominator, min=1)  #for relu
 
         dist = x.unsqueeze(1) - pi.unsqueeze(0)
         sdfDist = torch.sum(dist * normals, dim=2)  
@@ -87,7 +88,8 @@ for epoch in range(epochs):
         # numerator_local = torch.relu(finalLayerData_local)
 
         denominator_local = torch.sum(numerator_local, dim=-1, keepdim=True)
-        weights_local = numerator_local / torch.clamp(denominator_local, min=1e-6)
+        weights_local = numerator_local / torch.clamp(denominator_local, min=1e-6) #for sigmoid
+        # weights_local = numerator_local / torch.clamp(denominator_local, min=1)  #for relu
         
         w_i_xi = torch.diagonal(weights_local) 
         

@@ -2,6 +2,7 @@ import torch
 import numpy as np
 import skimage
 import matplotlib.pyplot as plt
+from entmax import sparsemax, entmax15
 
 # NN architecture
 # Use the other line if this causes errors
@@ -57,9 +58,15 @@ with torch.no_grad():
     for l in layers:
         out = activation(l(out))
 
-    logits = finalLayer(out)
-    raw_gaussian_weights = torch.exp(-((logits / h_network) ** 2))
-    weights = raw_gaussian_weights / (torch.sum(raw_gaussian_weights, dim=-1, keepdim=True) + 1e-8 )
+    #Gaussian weights
+    # logits = finalLayer(out)
+    # raw_gaussian_weights = torch.exp(-((logits / h_network) ** 2))
+    # weights = raw_gaussian_weights / (torch.sum(raw_gaussian_weights, dim=-1, keepdim=True) + 1e-8 )
+
+    weights = softmax(finalLayer(out)) 
+
+    #sparsemax
+    # weights = entmax15(finalLayer(out)) 
 
     dist = pts.unsqueeze(1) - pi.unsqueeze(0)
     sdfDist = torch.sum(dist * normals, dim=2) 
@@ -117,7 +124,6 @@ plt.colorbar(im, ax=ax2, label='Predicted Distance')
 for contour in world_contours:
     ax2.plot(contour[:, 0], contour[:, 1], color='white', linewidth=2, zorder=4)
 
-ax2.set_title(f"Reconstructed Mesh Contour (Level: {contVal:.4f})")
 
 plt.savefig("neural_voronoi_diagram_labeled.png", dpi=300)
 plt.show()
