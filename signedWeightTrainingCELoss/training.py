@@ -38,10 +38,14 @@ params = list(layers.parameters()) + list(finalLayer.parameters())
 optimizer = torch.optim.Adam(params, lr=1e-4)
 activation = torch.nn.ReLU()
 
+ceOptimizer = torch.optim.Adam(params, lr=1e-3)
+ceEpochs = 10 
+
 # Training
 batchSize = 128
 epochs = 100
-lm = 1.0
+lm1 = 0.0
+lm2 = 0.01
 sigma = 0.01
 h = 0.2
 
@@ -51,8 +55,6 @@ dist_matrix = torch.cdist(pointsTens, pi)
 labels = torch.argmin(dist_matrix, dim=1)
 
 print("initialization")
-ceOptimizer = torch.optim.Adam(params, lr=1e-3)
-ceEpochs = 50 
 
 for epoch in range(ceEpochs):
     perm = torch.randperm(pointsTens.shape[0])
@@ -96,15 +98,15 @@ for epoch in range(epochs):
         out = x
         for l in layers:
             out = activation(l(out))
-
-        weights = softmax(finalLayer(out)) 
+      
+        weights = softmax(finalLayer(out))
 
         dist = x.unsqueeze(1) - pi.unsqueeze(0)
         sdfDist = torch.sum(dist * normals, dim=2) 
 
         pred = torch.sum(weights * sdfDist, dim=1)
        
-        loss1 = torch.nn.functional.mse_loss(pred, gt)
+        MSEloss = torch.nn.functional.mse_loss(pred, gt)
 
         epsilon = torch.randn_like(pi) * sigma 
         x_i = pi + epsilon
@@ -120,9 +122,11 @@ for epoch in range(epochs):
         dist_xi_pi = torch.norm(epsilon, dim=1)
         target_weights = torch.exp(-(dist_xi_pi / h) ** 2)
         
-        loss2 = torch.nn.functional.mse_loss(w_i_xi, target_weights)
+        loss1 = torch.nn.functional.mse_loss(w_i_xi, target_weights)
 
-        loss = loss1 + lm * loss2
+        loss2 = torch.mean(torch.sum(torch.abs(weights), dim=1))
+
+        loss = MSEloss + lm1 * loss1 + lm2 * loss2
 
         optimizer.zero_grad()
         loss.backward()
@@ -133,7 +137,7 @@ for epoch in range(epochs):
     elapsedTime = time.time() - startTime
     mins, secs = divmod(elapsedTime, 60)    
 
-    print(f"train epoch {epoch} loss1 {loss1:.4f} loss2 {loss2:.4f} time {int(mins)}m {int(secs)}s")
+    print(f"train epoch {epoch} MSEloss {MSEloss:.4f} loss1 {loss1:.4f} loss2 {loss2:.4f} time {int(mins)}m {int(secs)}s")
 
 torch.save({
     "layers": [l.state_dict() for l in layers],
