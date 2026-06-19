@@ -10,6 +10,8 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
 
 model = torch.load("model2D.pth")
+# model = torch.load("modelCE2D.pth")
+
 pi = model["reference_points"].to(device)
 N = pi.shape[0]
 normals = model["reference_normals"].to(device)

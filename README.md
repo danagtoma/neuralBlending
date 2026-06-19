@@ -82,6 +82,18 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
   - [Dragon mesh](#dragon-mesh-1)
     - [A. Changing number of anchors - 50 ceEpochs](#a-changing-number-of-anchors---50-ceepochs-3)
     - [B. Changing number of ceEpochs - 200 anchors](#b-changing-number-of-ceepochs---200-anchors)
+  - [Results using only the cross-entropy](#results-using-only-the-cross-entropy)
+    - [Dolphin - 50 anchors](#dolphin---50-anchors)
+    - [Dolphin - 100 anchors](#dolphin---100-anchors)
+    - [Horse - 100 anchors](#horse---100-anchors)
+    - [Dragon - 200 anchors](#dragon---200-anchors)
+- [Experiments with cross-entropy loss and sparsemax activation](#experiments-with-cross-entropy-loss-and-sparsemax-activation)
+  - [Dolphin mesh - 100 anchors](#dolphin-mesh---100-anchors)
+    - [1. Sparsemax](#1-sparsemax)
+    - [2. Entmax15](#2-entmax15)
+  - [Dragon mesh - 200 anchors](#dragon-mesh---200-anchors)
+    - [1. Sparsemax](#1-sparsemax-1)
+    - [2. Entmax15](#2-entmax15-1)
 
 
 ## Directory Structure
@@ -1343,6 +1355,16 @@ Architecture:
     <b>100 anchors and 1 lm</b>
   </div>
 
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100a 100e 50ce 1lm 0.05h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors and 1 lm and 0.05 h</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100a 100e 50ce 1lm 0.02h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors and 1 lm and 0.02 h</b>
+  </div>
+
 </div>
 
 #### B. Changing number of ceEpochs - 100 anchors
@@ -1365,6 +1387,7 @@ Architecture:
   </div>
 
 </div>
+
 
 ### Horse mesh
 
@@ -1391,6 +1414,10 @@ Architecture:
     <img src="signedWeightTrainingCELoss/img/horse/100a 100e 50ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>100 anchors and 1 lm</b>
   </div>
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/100a 100e 50ce 1lm 0.02h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 anchors and 1 lm and 0.02h</b>
+  </div>
 
 </div>
 
@@ -1409,6 +1436,7 @@ Architecture:
   </div>
 
 </div>
+
 
 ### Dragon mesh
 
@@ -1432,6 +1460,12 @@ Architecture:
   </div>
 
   <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 50ce 1lm 0.02h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>200 anchors and 1 lm 0.02h
+    </b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
     <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 50ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>200 anchors and 1 lm</b>
   </div>
@@ -1449,6 +1483,209 @@ Architecture:
   <div style="text-align: center; margin-bottom: 30px;">
     <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>50 ceEpochs</b>
+  </div>
+
+</div>
+
+
+### Results using only the cross-entropy
+
+#### Dolphin - 50 anchors
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dolphin/50a 100e 10ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>10 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dolphin/50a 100e 30ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>30 ceEpochs</b>
+  </div>
+
+</div>
+
+#### Dolphin - 100 anchors
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dolphin/100a 100e 10ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>10 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dolphin/100a 100e 20ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>20 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dolphin/100a 100e 50ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 ceEpochs</b>
+  </div>
+  
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dolphin/100a 100e 100ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 ceEpochs</b>
+  </div>
+
+</div>
+
+#### Horse - 100 anchors
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/horse/100a 100e 10ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>10 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/horse/100a 100e 20ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>20 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/horse/100a 100e 50ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 ceEpochs</b>
+  </div>
+
+</div>
+
+#### Dragon - 200 anchors
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dragon/200a 100e 10ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>10 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dragon/200a 100e 20ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>20 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dragon/200a 100e 50ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>50 ceEpochs</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dragon/200a 100e 100ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>100 ceEpochs</b>
+  </div>
+</div>
+
+
+## Experiments with cross-entropy loss and sparsemax activation
+Experiments done with initialization of the weights with cross-entropy loss and sparsemax ans the final layer activation function.
+[Link to code](signedWeightTrainingSparsemax)
+
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* hidden = 64
+* noLayers = 4
+* batchSize = 128
+* epochs = 100
+* ce = 10
+
+### Dolphin mesh - 100 anchors
+
+#### 1. Sparsemax
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dolphin/sparsemax/100a 10ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dolphin/sparsemax/100a 10ce 0.5lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0.5 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dolphin/sparsemax/100a 10ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dolphin/sparsemax/100a 10ce 1lm 0.02h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 lm and 0.02h</b>
+  </div>
+
+</div>
+
+#### 2. Entmax15
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dolphin/entmax/100a 10ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dolphin/entmax/100a 10ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 lm</b>
+  </div>
+
+</div>
+
+
+### Dragon mesh - 200 anchors
+
+#### 1. Sparsemax
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dragon/sparsemax/200a 10ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dragon/sparsemax/200a 10ce 0.5lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0.5 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dragon/sparsemax/200a 10ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dragon/sparsemax/200a 10ce 1lm 0.02h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 lm and 0.02h</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dragon/other sparsemax 200a 10ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Another Sparsemax implementation</b>
+  </div>
+
+</div>
+
+#### 2. Entmax15
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dragon/entmax/200a 10ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dragon/entmax/200a 10ce 1lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 lm</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingSparsemax/img/dragon/entmax/200a 10ce 1lm 0.02h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 lm and 0.02h</b>
   </div>
 
 </div>

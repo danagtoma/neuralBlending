@@ -41,8 +41,8 @@ activation = torch.nn.ReLU()
 
 # Training
 batchSize = 128
-epochs = 300
-lm = 1.0
+epochs = 100
+lm = 0.0
 sigma = 0.01
 h = 0.2
 hGauss = 0.2
@@ -71,7 +71,7 @@ for epoch in range(epochs):
         weights = softmax(finalLayer(out)) 
 
         #sparsemax
-        # weights = entmax15(finalLayer(out)) 
+        # weights = sparsemax(finalLayer(out)) 
 
         dist = x.unsqueeze(1) - pi.unsqueeze(0)
         sdfDist = torch.sum(dist * normals, dim=2) 
@@ -95,7 +95,7 @@ for epoch in range(epochs):
         weights_local = softmax(finalLayer(out_local))
 
         #sparsemax
-        # weights_local = entmax15(finalLayer(out_local)) 
+        # weights_local = sparsemax(finalLayer(out_local)) 
 
         w_i_xi = torch.diagonal(weights_local) 
         

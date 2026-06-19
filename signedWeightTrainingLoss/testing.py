@@ -66,7 +66,7 @@ with torch.no_grad():
     weights = softmax(finalLayer(out)) 
 
     #sparsemax
-    # weights = entmax15(finalLayer(out)) 
+    # weights = sparsemax(finalLayer(out)) 
 
     dist = pts.unsqueeze(1) - pi.unsqueeze(0)
     sdfDist = torch.sum(dist * normals, dim=2) 

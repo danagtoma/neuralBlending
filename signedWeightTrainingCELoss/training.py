@@ -39,15 +39,14 @@ optimizer = torch.optim.Adam(params, lr=1e-4)
 activation = torch.nn.ReLU()
 
 ceOptimizer = torch.optim.Adam(params, lr=1e-3)
-ceEpochs = 10 
+ceEpochs = 100 
 
 # Training
 batchSize = 128
 epochs = 100
-lm1 = 0.0
-lm2 = 0.01
+lm1 = 1.0
 sigma = 0.01
-h = 0.2
+h = 0.02
 
 startTime = time.time()
 
@@ -82,8 +81,15 @@ for epoch in range(ceEpochs):
         
     print(f"pre-train epoch {epoch}  CEloss: {totalCEloss:.4f} time {int(mins)}m {int(secs)}s")
 
-print("SDF training")
+torch.save({
+    "layers": [l.state_dict() for l in layers],
+    "finalLayer": finalLayer.state_dict(),
+    "reference_points": pi.cpu(),
+    "reference_normals": normalTens.cpu(),
+}, "modelCE2D.pth")
 
+
+print("SDF training")
 
 for epoch in range(epochs):
     perm = torch.randperm(pointsTens.shape[0])
@@ -124,9 +130,7 @@ for epoch in range(epochs):
         
         loss1 = torch.nn.functional.mse_loss(w_i_xi, target_weights)
 
-        loss2 = torch.mean(torch.sum(torch.abs(weights), dim=1))
-
-        loss = MSEloss + lm1 * loss1 + lm2 * loss2
+        loss = MSEloss + lm1 * loss1
 
         optimizer.zero_grad()
         loss.backward()
@@ -137,7 +141,7 @@ for epoch in range(epochs):
     elapsedTime = time.time() - startTime
     mins, secs = divmod(elapsedTime, 60)    
 
-    print(f"train epoch {epoch} MSEloss {MSEloss:.4f} loss1 {loss1:.4f} loss2 {loss2:.4f} time {int(mins)}m {int(secs)}s")
+    print(f"train epoch {epoch} MSEloss {MSEloss:.4f} loss1 {loss1:.4f} time {int(mins)}m {int(secs)}s")
 
 torch.save({
     "layers": [l.state_dict() for l in layers],

@@ -3,12 +3,12 @@ import meshio
 import numpy as np
 import igl
 
-noRefPoints = 200
+noRefPoints = 100
 noRandomPoints = 2000
 noSurfacePoints = 8000
 
 #Read mesh
-mesh = meshio.read("Meshes/2D/dragon.obj")
+mesh = meshio.read("Meshes/2D/dauphin.obj")
 
 vertsMesh = mesh.points
 facesMesh = mesh.cells_dict["triangle"]
