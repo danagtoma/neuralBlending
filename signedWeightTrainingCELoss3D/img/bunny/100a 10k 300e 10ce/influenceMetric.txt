@@ -1,0 +1,1 @@
+max number of anchors influence a point: 7.0

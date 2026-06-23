@@ -2,7 +2,6 @@ import torch
 import numpy as np
 import skimage
 import matplotlib.pyplot as plt
-from entmax import sparsemax, entmax15
 
 # NN architecture
 # Use the other line if this causes errors
@@ -42,7 +41,6 @@ print("model loaded")
 # SDF creation
 resolution = 128
 bound = 1.2
-h_network = 0.2
 
 xs = np.linspace(-bound, bound, resolution)
 ys = np.linspace(-bound, bound, resolution)

@@ -1,5 +1,5 @@
 import torch
-from signedWeightTrainingCELoss.samplingPoints2D import allPoint, refPoints, refNormals, S_surf
+from signedWeightTrainingCELoss3D.samplingPoints3D import allPoint, refPoints, refNormals, S_surf
 import numpy as np
 import time
 
@@ -20,9 +20,9 @@ sdTens = torch.from_numpy(S_surf).float().to(device)
 # Build NN
 layers = torch.nn.ModuleList()
 
-inDim = 2
-hidden = 64
-noLayers = 4
+inDim = 3
+hidden = 128
+noLayers = 6
 
 for i in range(noLayers):
     layers.append(torch.nn.Linear(inDim, hidden))
@@ -39,12 +39,11 @@ optimizer = torch.optim.Adam(params, lr=1e-4)
 activation = torch.nn.ReLU()
 
 ceOptimizer = torch.optim.Adam(params, lr=1e-3)
-ceEpochs = 10
+ceEpochs = 100
 
 # Training
-batchSize = 128
-epochs = 100
-lm1 = 0.0
+batchSize = 256
+epochs = 300
 sigma = 0.01
 h = 0.02
 
@@ -86,7 +85,7 @@ torch.save({
     "finalLayer": finalLayer.state_dict(),
     "reference_points": pi.cpu(),
     "reference_normals": normalTens.cpu(),
-}, "modelCE2D.pth")
+}, "modelCE3D.pth")
 
 
 print("SDF training")
@@ -130,7 +129,7 @@ for epoch in range(epochs):
         
         loss1 = torch.nn.functional.mse_loss(w_i_xi, target_weights)
 
-        loss = MSEloss + lm1 * loss1
+        loss = MSEloss
 
         optimizer.zero_grad()
         loss.backward()
@@ -148,5 +147,5 @@ torch.save({
     "finalLayer": finalLayer.state_dict(),
     "reference_points": pi.cpu(),
     "reference_normals": normalTens.cpu(),
-}, "model2D.pth")
+}, "model3D.pth")
 print("model saved")
