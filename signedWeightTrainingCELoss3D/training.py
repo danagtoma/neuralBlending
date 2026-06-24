@@ -2,6 +2,7 @@ import torch
 from signedWeightTrainingCELoss3D.samplingPoints3D import allPoint, refPoints, refNormals, S_surf
 import numpy as np
 import time
+import matplotlib.pyplot as plt
 
 # Use the other line if this causes errors
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -52,16 +53,22 @@ startTime = time.time()
 dist_matrix = torch.cdist(pointsTens, pi)
 labels = torch.argmin(dist_matrix, dim=1)
 
+ceLossPlot = []
+sdfLossPlot = []
+
 print("initialization")
 
 for epoch in range(ceEpochs):
     perm = torch.randperm(pointsTens.shape[0])
-    totalCEloss = 0
+    totalBatchSize = 0
+    epochLoss = 0
     
     for i in range(0, pointsTens.shape[0], batchSize):
         idx = perm[i:i+batchSize]
         x = pointsTens[idx]
         gtLabels = labels[idx] 
+
+        batchSizeCurr = x.size(0)
         
         out = x
         for l in layers:
@@ -72,13 +79,17 @@ for epoch in range(ceEpochs):
         ceOptimizer.zero_grad()
         CEloss.backward()
         ceOptimizer.step()
-        
-        totalCEloss += CEloss.item()
+
+        epochLoss += CEloss.item() * batchSizeCurr
+        totalBatchSize += batchSizeCurr
+    
+    avgCEloss = epochLoss / totalBatchSize
+    ceLossPlot.append(avgCEloss)
 
     elapsedTime = time.time() - startTime
     mins, secs = divmod(elapsedTime, 60)    
         
-    print(f"pre-train epoch {epoch}  CEloss: {totalCEloss:.4f} time {int(mins)}m {int(secs)}s")
+    print(f"pre-train epoch {epoch}  CEloss: {avgCEloss:.4f} time {int(mins)}m {int(secs)}s")
 
 torch.save({
     "layers": [l.state_dict() for l in layers],
@@ -92,13 +103,16 @@ print("SDF training")
 
 for epoch in range(epochs):
     perm = torch.randperm(pointsTens.shape[0])
-    totalLoss = 0
+    totalBatchSize = 0
+    epochLoss = 0
 
     for i in range(0, pointsTens.shape[0], batchSize):
         idx = perm[i:i+batchSize]
         x = pointsTens[idx].clone().requires_grad_(True)
         normals = normalTens.unsqueeze(0)
         gt = sdTens[idx]
+
+        batchSizeCurr = x.size(0)
 
         out = x
         for l in layers:
@@ -113,34 +127,20 @@ for epoch in range(epochs):
        
         MSEloss = torch.nn.functional.mse_loss(pred, gt)
 
-        epsilon = torch.randn_like(pi) * sigma 
-        x_i = pi + epsilon
-
-        out_local = x_i
-        for l in layers:
-            out_local = activation(l(out_local))
-            
-        weights_local = softmax(finalLayer(out_local))
-
-        w_i_xi = torch.diagonal(weights_local) 
-        
-        dist_xi_pi = torch.norm(epsilon, dim=1)
-        target_weights = torch.exp(-(dist_xi_pi / h) ** 2)
-        
-        loss1 = torch.nn.functional.mse_loss(w_i_xi, target_weights)
-
-        loss = MSEloss
-
         optimizer.zero_grad()
-        loss.backward()
+        MSEloss.backward()
         optimizer.step()
 
-        totalLoss += loss.item()
+        epochLoss += MSEloss.item() * batchSizeCurr
+        totalBatchSize += batchSizeCurr
+
+    avgMSEloss = epochLoss / totalBatchSize
+    sdfLossPlot.append(avgMSEloss)
 
     elapsedTime = time.time() - startTime
     mins, secs = divmod(elapsedTime, 60)    
 
-    print(f"train epoch {epoch} MSEloss {MSEloss:.4f} loss1 {loss1:.4f} time {int(mins)}m {int(secs)}s")
+    print(f"train epoch {epoch} MSEloss {avgMSEloss:.4f} time {int(mins)}m {int(secs)}s")
 
 torch.save({
     "layers": [l.state_dict() for l in layers],
@@ -149,3 +149,14 @@ torch.save({
     "reference_normals": normalTens.cpu(),
 }, "model3D.pth")
 print("model saved")
+
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+ax1.plot(ceLossPlot, color='orange', label='CE Loss')
+ax1.set_title("Pre-training Convergence")
+ax1.set_xlabel("Epoch")
+ax1.set_ylabel("Cross-Entropy Loss")
+ax2.plot(sdfLossPlot, color='blue', label='SDF Loss')
+ax2.set_title("SDF Training Convergence")
+ax2.set_xlabel("Epoch")
+ax2.set_ylabel("MSE Loss")
+plt.savefig("training_loss.png")
