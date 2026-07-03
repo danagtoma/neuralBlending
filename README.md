@@ -94,7 +94,7 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
   - [Dragon mesh - 200 anchors](#dragon-mesh---200-anchors)
     - [1. Sparsemax](#1-sparsemax-1)
     - [2. Entmax15](#2-entmax15-1)
-  - [Comparison between training with cross-entropy, SDF or both](#comparison-between-training-with-cross-entropy-sdf-or-both)
+- [Comparison between training with cross-entropy, SDF or both](#comparison-between-training-with-cross-entropy-sdf-or-both)
     - [Dolphin - 50 anchors](#dolphin---50-anchors-1)
     - [Horse - 100 anchors](#horse---100-anchors-1)
     - [Dragon - 200 anchors](#dragon---200-anchors-1)
@@ -1694,7 +1694,7 @@ Architecture:
 
 </div>
 
-### Comparison between training with cross-entropy, SDF or both
+## Comparison between training with cross-entropy, SDF or both
 
 Architecture: 
 * sigma = 0.01
