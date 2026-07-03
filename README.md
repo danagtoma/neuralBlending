@@ -23,7 +23,7 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
     - [3. Trained with normalization formula on final layer using Softmax and loss function](#3-trained-with-normalization-formula-on-final-layer-using-softmax-and-loss-function)
         - [50 anchors](#50-anchors)
         - [15 anchors](#15-anchors)
-- [Experiments for better contours](#experiments-for-better-contours)
+- [Experiments for better contours + loss function](#experiments-for-better-contours--loss-function)
   - [U mesh](#u-mesh)
     - [A. Changing number of anchors and epochs](#a-changing-number-of-anchors-and-epochs)
       - [1. 15 anchors](#1-15-anchors)
@@ -94,6 +94,10 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
   - [Dragon mesh - 200 anchors](#dragon-mesh---200-anchors)
     - [1. Sparsemax](#1-sparsemax-1)
     - [2. Entmax15](#2-entmax15-1)
+  - [Comparison between training with cross-entropy, SDF or both](#comparison-between-training-with-cross-entropy-sdf-or-both)
+    - [Dolphin - 50 anchors](#dolphin---50-anchors-1)
+    - [Horse - 100 anchors](#horse---100-anchors-1)
+    - [Dragon - 200 anchors](#dragon---200-anchors-1)
 
 
 ## Directory Structure
@@ -296,7 +300,7 @@ Best result with:
 
 
 ---
-## Experiments for better contours
+## Experiments for better contours + loss function
 Experiments done for signed fields with Softmax on final layer and Relu as activation function.
 
 ### U mesh
@@ -859,7 +863,7 @@ Architecture:
   <div>
     (3) architecture: 
     <ul>
-      <li>hidden = 65</li>
+      <li>hidden = 64</li>
       <li>noLayers = 4</li>
       <li>lm = 0.5</li>
       <li>noRandomPoints = 10000</li>
@@ -1686,6 +1690,93 @@ Architecture:
   <div style="text-align: center; margin-bottom: 30px;">
     <img src="signedWeightTrainingSparsemax/img/dragon/entmax/200a 10ce 1lm 0.02h/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
     <b>1 lm and 0.02h</b>
+  </div>
+
+</div>
+
+### Comparison between training with cross-entropy, SDF or both
+
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* hidden = 64
+* noLayers = 4
+* batchSize = 128
+* lm = 0
+
+#### Dolphin - 50 anchors
+
+* epochs = 100
+* ceEpochs = 10
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dolphin/50a 100e 10ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Cross-entropy</b>
+  </div>
+
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/50a 100e 10ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Both</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dolphin/50 anchors/100 epoch 0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>SDF</b>
+  </div>
+
+</div>
+
+#### Horse - 100 anchors
+
+* epochs = 100
+* ceEpochs = 20
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/horse/100a 100e 20ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Cross-entropy</b>
+  </div>
+
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/100a 100e 20ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Both</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/horse/100 anchors 100 epochs 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>SDF</b>
+  </div>
+
+</div>
+
+#### Dragon - 200 anchors
+
+* epochs = 100
+* ceEpochs = 20
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/only CE/dragon/200a 100e 20ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Cross-entropy</b>
+  </div>
+
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 20ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Both</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingLoss/img/dragon/200 anchors 100 epochs 0 lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>SDF</b>
   </div>
 
 </div>
