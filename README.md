@@ -98,6 +98,8 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
     - [Dolphin - 50 anchors](#dolphin---50-anchors-1)
     - [Horse - 100 anchors](#horse---100-anchors-1)
     - [Dragon - 200 anchors](#dragon---200-anchors-1)
+- [Results for 3D meshes](#results-for-3d-meshes)
+- [Lucy](#lucy)
 
 
 ## Directory Structure
@@ -1780,3 +1782,49 @@ Architecture:
   </div>
 
 </div>
+
+## Results for 3D meshes
+These networks were trained on 15k anchors and 100k random points.
+
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* hidden = 128
+* noLayers = 6
+* batchSize = 256
+* epochs = 1000
+* ceEpochs = 100
+
+<p align="center">
+  <img src="abacaOutput/15k 100k 100ce 1000e/armadillo/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/bunny/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/cheburashka/screenshot_000000.png" width="400"> 
+  <img src="abacaOutput/15k 100k 100ce 1000e/dragon/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/Dragon_2/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/happy/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/lucy/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/max-planck/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/Ram/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/Scallop/screenshot_000000.png" width="400">
+
+</p>
+
+
+
+## Lucy
+This mesh was trained on 100k anchors and 1 million random points.
+
+
+Architecture: 
+* sigma = 0.01
+* h = 0.2
+* noRandomPoints = 80000
+* noSurfacePoints = 20000
+* hidden = 128
+* noLayers = 6
+* batchSize = 256
+* epochs = 500
+* ceEpochs = 100
+<img src="abacaOutput/lucy 100k 100mil/screenshot_000000.png" width="1000" alt="">

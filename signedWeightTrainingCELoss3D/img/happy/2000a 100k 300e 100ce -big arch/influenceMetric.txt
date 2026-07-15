@@ -1,1 +1,2 @@
+Time taken to create the SDF: 2m 36s
 max number of anchors influence a point: 26.0

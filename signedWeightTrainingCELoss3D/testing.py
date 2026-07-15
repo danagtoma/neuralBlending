@@ -4,6 +4,7 @@ import skimage
 import matplotlib.pyplot as plt
 import meshio
 import polyscope as ps
+import time
 
 # NN architecture
 # Use the other line if this causes errors
@@ -52,7 +53,11 @@ zs = np.linspace(-bound, bound, resolution)
 grid = np.zeros((resolution, resolution, resolution), np.float32)
 voronoi_grid = np.zeros((resolution, resolution, resolution), np.float32)
 
+startTime = time.time()
+
 with torch.no_grad():
+    pi_unsqueezed = pi.unsqueeze(0)       
+    normals_unsqueezed = normals.unsqueeze(0)  
     for i, x in enumerate(xs):
         for j,y in enumerate(ys):
             pts = np.stack([np.full_like(zs, x), np.full_like(zs, y), zs], 1)
@@ -63,22 +68,41 @@ with torch.no_grad():
                 out = activation(l(out))
             weights = softmax(finalLayer(out)) 
 
-            dist = pts.unsqueeze(1) - pi.unsqueeze(0)
-            sdfDist = torch.sum(dist * normals, dim=2) 
 
-            activeAnchors = weights > influence_threshold
-            weightsThreshold = torch.where(activeAnchors, weights, torch.zeros_like(weights))
+            #SDF only for active anchors
+            activeAnchors = weights > influence_threshold 
+            activeWeights = weights[activeAnchors]
 
-            f_x = torch.sum(weightsThreshold * sdfDist, dim=1)
+            z_indices, anchor_indices = torch.where(activeAnchors)
+
+            pts_filtered = pts[z_indices]                      
+            pi_filtered = pi_unsqueezed[0, anchor_indices]     
+            normals_filtered = normals_unsqueezed[0, anchor_indices]
+
+            dist = pts_filtered - pi_filtered                  
+            sdfDist = torch.sum(dist * normals_filtered, dim=1)
+
+            f_x_row = torch.zeros(resolution, device=device)
+            f_x_row.index_add_(0, z_indices, activeWeights * sdfDist)
+
+            grid[i, j, :] = f_x_row.cpu().numpy()
+
+            #SDF for all anchors
+            # dist = pts.unsqueeze(1) - pi.unsqueeze(0)
+            # sdfDist = torch.sum(dist * normals, dim=2) 
+
+            # f_x = torch.sum(weights * sdfDist, dim=1)
             
-            grid[i,j,:] = f_x.squeeze().cpu().numpy()
+            # grid[i,j,:] = f_x.squeeze().cpu().numpy()
 
 print("SDF created")  
+elapsedTime = time.time() - startTime
+mins, secs = divmod(elapsedTime, 60) 
+print(f"Time taken to create the SDF: {int(mins)}m {int(secs)}s")   
+with open("influenceMetric.txt", "w") as f:
+    f.write(f"Time taken to create the SDF: {int(mins)}m {int(secs)}s\n")
 
 print(np.min(grid), np.max(grid))
-half = (np.min(grid) + np.max(grid))/2
-eps = max(1e-4, np.percentile(grid, 1))
-contVal = 0.0
 
 # Marching squares
 verts, faces, _, _ = skimage.measure.marching_cubes(grid, 0.0) 
@@ -94,11 +118,6 @@ meshio.write("reconstructedMesh.obj", mesh)
 print("meshed saved")
 
 #polyscope
-avgWeights = weights.mean(dim=0).cpu().numpy()
-maxWeights = weights.max(dim=0).values.cpu().numpy()
-dead = avgWeights < 0.001
-anchorsNp = pi.detach().cpu().numpy()
-
 meshOrg = meshio.read("Meshes/3D/beetle.obj")
 
 min_box = meshOrg.points.min(axis=0)
@@ -123,7 +142,7 @@ influence_count = torch.sum(active_anchors, dim=1)
 influence_count_max = influence_count.max()
 print(f"max number of anchors that influnece a point {influence_count_max}") 
 
-with open("influenceMetric.txt", "w") as f:
+with open("influenceMetric.txt", "a") as f:
     f.write(f"max number of anchors influence a point: {influence_count_max}\n")
 
 print("done")

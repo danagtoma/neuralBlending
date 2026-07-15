@@ -3,12 +3,12 @@ import meshio
 import numpy as np
 import igl
 
-noRefPoints = 1000
-noRandomPoints = 2000
-noSurfacePoints = 8000
+noRefPoints = 10000
+noRandomPoints = 20000
+noSurfacePoints = 80000
 
 # Read mesh
-mesh = meshio.read("Meshes/3D/teapot.obj")
+mesh = meshio.read("Meshes/3D/armadillo.obj")
 
 vertsMesh = mesh.points
 facesMesh = mesh.cells_dict["triangle"]

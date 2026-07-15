@@ -1,0 +1,2 @@
+Time taken to create the SDF: 7m 48s
+max number of anchors that influnece a point lazy computing: 133

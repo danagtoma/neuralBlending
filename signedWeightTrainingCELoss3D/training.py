@@ -89,7 +89,7 @@ for epoch in range(ceEpochs):
     elapsedTime = time.time() - startTime
     mins, secs = divmod(elapsedTime, 60)    
         
-    print(f"pre-train epoch {epoch}  CEloss: {avgCEloss:.4f} time {int(mins)}m {int(secs)}s")
+    print(f"pre-train epoch {epoch}  CEloss: {avgCEloss} time {int(mins)}m {int(secs)}s")
 
 torch.save({
     "layers": [l.state_dict() for l in layers],
@@ -140,7 +140,7 @@ for epoch in range(epochs):
     elapsedTime = time.time() - startTime
     mins, secs = divmod(elapsedTime, 60)    
 
-    print(f"train epoch {epoch} MSEloss {avgMSEloss:.4f} time {int(mins)}m {int(secs)}s")
+    print(f"train epoch {epoch} MSEloss {avgMSEloss} time {int(mins)}m {int(secs)}s")
 
 torch.save({
     "layers": [l.state_dict() for l in layers],
@@ -155,8 +155,24 @@ ax1.plot(ceLossPlot, color='orange', label='CE Loss')
 ax1.set_title("Pre-training Convergence")
 ax1.set_xlabel("Epoch")
 ax1.set_ylabel("Cross-Entropy Loss")
+
 ax2.plot(sdfLossPlot, color='blue', label='SDF Loss')
 ax2.set_title("SDF Training Convergence")
 ax2.set_xlabel("Epoch")
 ax2.set_ylabel("MSE Loss")
 plt.savefig("training_loss.png")
+
+
+fig2, (ax1_log, ax2_log) = plt.subplots(1, 2, figsize=(12, 5))
+ax1_log.plot(ceLossPlot, color='orange', label='CE Loss')
+ax1_log.set_yscale('log')
+ax1_log.set_title("Pre-training Convergence (Log Scale)")
+ax1_log.set_xlabel("Epoch")
+ax1_log.set_ylabel("Cross-Entropy Loss (Log Scale)")
+
+ax2_log.plot(sdfLossPlot, color='blue', label='SDF Loss')
+ax2_log.set_yscale('log') 
+ax2_log.set_title("SDF Training Convergence (Log Scale)")
+ax2_log.set_xlabel("Epoch")
+ax2_log.set_ylabel("MSE Loss (Log Scale)")
+plt.savefig("training_loss_log.png")

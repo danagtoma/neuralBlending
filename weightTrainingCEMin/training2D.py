@@ -1,0 +1,122 @@
+import torch
+from weightTrainingCEMin.samplingPoints2D import allPoint, refPoints, refNormals
+import numpy as np
+import time
+
+# Use the other line if this causes errors
+device = "cuda" if torch.cuda.is_available() else "cpu"
+# device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
+print(f"Using {device} device")
+
+#Reference points
+pi = torch.from_numpy(refPoints).float().to(device)
+N = pi.shape[0]
+
+#Training data
+pointsTens = torch.from_numpy(allPoint).float().to(device)
+normalTens = torch.from_numpy(refNormals).float().to(device)
+
+# Build NN
+layers = torch.nn.ModuleList()
+
+inDim = 2
+hidden = 64
+noLayers = 4
+
+for i in range(noLayers):
+    layers.append(torch.nn.Linear(inDim, hidden))
+    inDim = hidden
+
+finalLayer = torch.nn.Linear(hidden, N)
+softmax = torch.nn.Softmax(dim=-1)
+
+layers.to(device)     
+finalLayer.to(device)
+
+params = list(layers.parameters()) + list(finalLayer.parameters())
+optimizer = torch.optim.Adam(params, lr=1e-4)
+activation = torch.nn.ReLU()
+
+ceOptimizer = torch.optim.Adam(params, lr=1e-3)
+ceEpochs = 50
+
+# Training
+batchSize = 128
+epochs = 200
+
+startTime = time.time()
+
+dist_matrix = torch.cdist(pointsTens, pi)
+labels = torch.argmin(dist_matrix, dim=1)
+
+print("initialization")
+
+for epoch in range(ceEpochs):
+    perm = torch.randperm(pointsTens.shape[0])
+    totalCEloss = 0
+    
+    for i in range(0, pointsTens.shape[0], batchSize):
+        idx = perm[i:i+batchSize]
+        x = pointsTens[idx]
+        gtLabels = labels[idx] 
+        
+        out = x
+        for l in layers:
+            out = activation(l(out))
+
+        CEloss = torch.nn.functional.cross_entropy(finalLayer(out), gtLabels)
+        
+        ceOptimizer.zero_grad()
+        CEloss.backward()
+        ceOptimizer.step()
+        
+        totalCEloss += CEloss.item()
+
+    elapsedTime = time.time() - startTime
+    mins, secs = divmod(elapsedTime, 60)    
+        
+    print(f"pre-train epoch {epoch}  CEloss: {totalCEloss:.4f} time {int(mins)}m {int(secs)}s")
+
+torch.save({
+    "layers": [l.state_dict() for l in layers],
+    "finalLayer": finalLayer.state_dict(),
+    "reference_points": pi.cpu(),
+    "reference_normals": normalTens.cpu(),
+}, "modelCE2D.pth")
+
+for epoch in range(epochs):
+    perm = torch.randperm(pointsTens.shape[0])
+    totalLoss = 0
+
+    for i in range(0, pointsTens.shape[0], batchSize):
+        idx = perm[i:i+batchSize]
+        x = pointsTens[idx].clone().requires_grad_(True)
+        normals = normalTens.unsqueeze(0)
+
+        out = x
+        for l in layers:
+            out = activation(l(out))
+
+        weights = softmax(finalLayer(out))
+
+        dist = torch.sum((x.unsqueeze(1) - pi.unsqueeze(0)) * normals, dim=2) 
+
+        pred = torch.sum(weights * dist, dim=1)
+       
+        loss = torch.mean(torch.abs(pred))
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+
+        totalLoss += loss.item()
+
+    print(f"epoch {epoch} loss {totalLoss:.4f}")
+
+torch.save({
+    "layers": [l.state_dict() for l in layers],
+    "finalLayer": finalLayer.state_dict(),
+    "reference_points": pi.cpu(),
+    "reference_normals": normalTens.cpu(),
+}, "model2D.pth")
+print("model saved")

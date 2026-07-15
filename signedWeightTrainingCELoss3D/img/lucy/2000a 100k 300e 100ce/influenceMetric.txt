@@ -1,1 +1,2 @@
-max number of anchors influence a point: 29.0
+Time taken to create the SDF: 3m 44s
+max number of anchors influence a point lazy computing: 130
