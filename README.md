@@ -98,6 +98,8 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
     - [Dolphin - 50 anchors](#dolphin---50-anchors-1)
     - [Horse - 100 anchors](#horse---100-anchors-1)
     - [Dragon - 200 anchors](#dragon---200-anchors-1)
+- [Ideal voronoi diagram and exponential weights](#ideal-voronoi-diagram-and-exponential-weights)
+- [Best results for 2D meshes](#best-results-for-2d-meshes)
 - [Results for 3D meshes](#results-for-3d-meshes)
 - [Lucy](#lucy)
 
@@ -1783,12 +1785,73 @@ Architecture:
 
 </div>
 
+## Ideal voronoi diagram and exponential weights
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/U/20_ideal_voronoi_cells.png"  style="width: 100%; max-width: 300px;" /><br/>
+    <img src="signedWeightTrainingCELoss/img/U/20_ideal_exponential_weights.png"  style="width: 100%; max-width: 300px;" /><br/>
+    <b>U - 20 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100_ideal_voronoi_cells.png"  style="width: 100%; max-width: 300px;" /><br/>
+    <img src="signedWeightTrainingCELoss/img/dauphin/100_ideal_exponential_weights.png"  style="width: 100%; max-width: 300px;" /><br/>
+    <b>Dolphin - 100 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/100_ideal_voronoi_cells.png"  style="width: 100%; max-width: 300px;" /><br/>
+    <img src="signedWeightTrainingCELoss/img/horse/100_ideal_exponential_weights.png"  style="width: 100%; max-width: 300px;" /><br/>
+    <b>Horse - 100 anchors</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/200_ideal_voronoi_cells.png"  style="width: 100%; max-width: 300px;" /><br/>
+    <img src="signedWeightTrainingCELoss/img/dragon/200_ideal_exponential_weights.png"  style="width: 100%; max-width: 300px;" /><br/>
+    <b>Dragon - 200 anchors</b>
+  </div>
+
+</div>
+
+## Best results for 2D meshes
+Architecture: 
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* hidden = 64
+* noLayers = 4
+* batchSize = 128
+* anchors = 20/100/100/200
+* epochs = 100
+* ceEpochs = 50
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/U/20a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>U</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Dolphin</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/100a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Horse</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 50ce 0lm/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Dragon</b>
+  </div>
+
+</div>
+
+
 ## Results for 3D meshes
 These networks were trained on 15k anchors and 100k random points.
 
 Architecture: 
-* sigma = 0.01
-* h = 0.2
 * noRandomPoints = 8000
 * noSurfacePoints = 2000
 * hidden = 128
@@ -1818,8 +1881,6 @@ This mesh was trained on 100k anchors and 1 million random points.
 
 
 Architecture: 
-* sigma = 0.01
-* h = 0.2
 * noRandomPoints = 80000
 * noSurfacePoints = 20000
 * hidden = 128
@@ -1827,4 +1888,4 @@ Architecture:
 * batchSize = 256
 * epochs = 500
 * ceEpochs = 100
-<img src="abacaOutput/lucy 100k 100mil/screenshot_000000.png" width="1000" alt="">
+<img src="abacaOutput/lucy 100k 1mil/screenshot_000000.png" width="1000" alt="">
