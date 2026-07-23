@@ -1,2 +1,5 @@
 Time taken to create the SDF: 12m 22s
 Max number of anchors influence a point: lazy computing: 65
+Gradient Norm: Mean: 1.003032922744751, Std Dev: 0.10565803945064545
+Time taken to create the gradient: 6m 3s
+

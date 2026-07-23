@@ -100,6 +100,7 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
     - [Dragon - 200 anchors](#dragon---200-anchors-1)
 - [Ideal voronoi diagram and exponential weights](#ideal-voronoi-diagram-and-exponential-weights)
 - [Best results for 2D meshes](#best-results-for-2d-meshes)
+- [Siren training for 2D meshes](#siren-training-for-2d-meshes)
 - [Results for 3D meshes](#results-for-3d-meshes)
 - [Lucy](#lucy)
 
@@ -1847,6 +1848,71 @@ Architecture:
 
 </div>
 
+## Siren training for 2D meshes
+
+Architecture: 
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* hidden = 64
+* noLayers = 6
+* batchSize = 128
+* epochs = 100
+* w0 = 30
+* c = 6
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELossSiren/img/U/siren_contours.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Siren</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/U/20a 100e 50ce 0lm/siren_contours.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Our</b>
+  </div>
+
+</div>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELossSiren/img/dolphin/siren_contours.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Siren</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dauphin/100a 100e 50ce 0lm/siren_contours.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Our</b>
+  </div>
+
+</div>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELossSiren/img/horse/siren_contours.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Siren</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/horse/100a 100e 50ce 0lm/siren_contours.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Our</b>
+  </div>
+
+</div>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELossSiren/img/dragon/siren_contours.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Siren</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCELoss/img/dragon/200a 100e 50ce 0lm/siren_contours.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>Our</b>
+  </div>
+
+</div>
+
+
 
 ## Results for 3D meshes
 These networks were trained on 15k anchors and 100k random points.
@@ -1871,6 +1937,8 @@ Architecture:
   <img src="abacaOutput/15k 100k 100ce 1000e/max-planck/screenshot_000000.png" width="400">
   <img src="abacaOutput/15k 100k 100ce 1000e/Ram/screenshot_000000.png" width="400">
   <img src="abacaOutput/15k 100k 100ce 1000e/Scallop/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/Glykon/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/cellular_lamp/screenshot_000000.png" width="400">
 
 </p>
 

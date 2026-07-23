@@ -216,4 +216,35 @@ ax.set_ylabel("Y")
 
 plt.savefig("anchor_influence_count.png", dpi=300, bbox_inches='tight')
 
+
+# level sets diagram
+contour_levels = [-0.3, -0.2, -0.1, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# mesh contour
+im = ax.imshow(grid.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='viridis')
+plt.colorbar(im, ax=ax, label='Predicted Distance')
+
+for level in contour_levels:
+    contours = skimage.measure.find_contours(grid, level)
+    
+    if np.isclose(level, 0.0):
+        color = 'red'      
+        linewidth = 3.5     
+        label_text = 'Level 0'
+    else:
+        color = 'white'     
+        linewidth = 1.2    
+        label_text = None
+        
+    for i, c in enumerate(contours):
+        c_world = np.zeros_like(c)
+        c_world[:, 0] = c[:, 0] * (xs[1] - xs[0]) + xs[0]
+        c_world[:, 1] = c[:, 1] * (ys[1] - ys[0]) + ys[0]
+        
+        ax.plot(c_world[:, 0], c_world[:, 1], color=color, linewidth=linewidth, zorder=4,label=label_text if i == 0 else "")
+
+ax.legend(loc='upper right')
+plt.savefig("siren_contours.png", dpi=300)
+plt.show()
 print("done")

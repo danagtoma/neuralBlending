@@ -6,9 +6,9 @@ import os
 
 mesh_name = sys.argv[1]
 
-noRefPoints = 15000
-noRandomPoints = 20000
-noSurfacePoints = 80000
+noRefPoints = 100000
+noRandomPoints = 200000
+noSurfacePoints = 800000
 
 # Read mesh
 mesh = meshio.read(f"Meshes/{mesh_name}.obj")
