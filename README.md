@@ -99,6 +99,10 @@ Run script using  `python -m <folder.script>` (no `.py` at the end)
     - [Horse - 100 anchors](#horse---100-anchors-1)
     - [Dragon - 200 anchors](#dragon---200-anchors-1)
 - [Ideal voronoi diagram and exponential weights](#ideal-voronoi-diagram-and-exponential-weights)
+- [Training the SDF with the cross-entropy loss as regularisation](#training-the-sdf-with-the-cross-entropy-loss-as-regularisation)
+    - [100 epochs](#100-epochs-1)
+    - [300 epochs](#300-epochs-1)
+    - [500 epochs](#500-epochs-1)
 - [Best results for 2D meshes](#best-results-for-2d-meshes)
 - [Siren training for 2D meshes](#siren-training-for-2d-meshes)
 - [Results for 3D meshes](#results-for-3d-meshes)
@@ -1814,6 +1818,66 @@ Architecture:
 
 </div>
 
+## Training the SDF with the cross-entropy loss as regularisation
+Architecture: 
+* noRandomPoints = 8000
+* noSurfacePoints = 2000
+* hidden = 64
+* noLayers = 4
+* batchSize = 128
+* anchors = 200
+
+
+#### 100 epochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCERegularisation/img/dragon/200a 100e 0.1ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0.1 CE influence</b>
+  </div>
+
+</div>
+
+#### 300 epochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCERegularisation/img/dragon/200a 300e 0.1ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0.1 CE influence</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCERegularisation/img/dragon/200a 300e 0.5ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0.5 CE influence</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCERegularisation/img/dragon/200a 300e 1ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 CE influence</b>
+  </div>
+
+</div>
+
+#### 500 epochs
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCERegularisation/img/dragon/200a 500e 0.1ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0.1 CE influence</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCERegularisation/img/dragon/200a 500e 0.5ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>0.5 CE influence</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="signedWeightTrainingCERegularisation/img/dragon/200a 500e 1ce/neural_voronoi_diagram_labeled.png"  style="width: 100%; max-width: 400px;" /><br/>
+    <b>1 CE influence</b>
+  </div>
+
+</div>
+
 ## Best results for 2D meshes
 Architecture: 
 * noRandomPoints = 8000
@@ -1939,6 +2003,7 @@ Architecture:
   <img src="abacaOutput/15k 100k 100ce 1000e/Scallop/screenshot_000000.png" width="400">
   <img src="abacaOutput/15k 100k 100ce 1000e/Glykon/screenshot_000000.png" width="400">
   <img src="abacaOutput/15k 100k 100ce 1000e/cellular_lamp/screenshot_000000.png" width="400">
+  <img src="abacaOutput/15k 100k 100ce 1000e/LightBulb/screenshot_000000.png" width="400">
 
 </p>
 
@@ -1957,3 +2022,5 @@ Architecture:
 * epochs = 500
 * ceEpochs = 100
 <img src="abacaOutput/lucy 100k 1mil/screenshot_000000.png" width="1000" alt="">
+<img src="abacaOutput/Glykon 100k 1mil/screenshot_000000.png" width="1000" alt="">
+<img src="abacaOutput/cellular_lamp 100k 1mil/screenshot_000000.png" width="1000" alt="">
