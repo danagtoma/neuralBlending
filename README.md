@@ -31,7 +31,7 @@
 
 ## Directory Structure
 
-* **Meshes**: Input mesh files.
+* **abacaOutput**: Results of the 3D experiments.
 * **signedWeightTrainingCELoss**: Scripts for training and testing anchor weights on 2D meshes using cross-entropy pretraining.
 * **signedWeightTrainingCELoss3D**: Scripts for training and testing anchor weights on 3D meshes using cross-entropy pretraining.
 * **signedWeightTrainingCELoss3DSiren**: Scripts for training and testing SIREN models on 3D meshes.
