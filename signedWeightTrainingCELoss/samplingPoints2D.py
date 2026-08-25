@@ -3,12 +3,12 @@ import meshio
 import numpy as np
 import igl
 
-noRefPoints = 100
+noRefPoints = 200
 noRandomPoints = 2000
 noSurfacePoints = 8000
 
 #Read mesh
-mesh = meshio.read("Meshes/2D/dauphin.obj")
+mesh = meshio.read("Meshes/2D/dragon.obj")
 
 vertsMesh = mesh.points
 facesMesh = mesh.cells_dict["triangle"]
@@ -133,7 +133,7 @@ def extrude_2d_mesh(verts, faces):
 V_tent, F_tent = extrude_2d_mesh(vertsMeshNorm, facesMesh)
 S_surf, _, _, _ = igl.signed_distance(allPoint, V_tent, F_tent, sign_type=0)
 
-denseSurf, denseNormals = samplingEdgePoints(5000)
+denseSurf, denseNormals = samplingEdgePoints(5 * noRefPoints)
 anchor_indices = farthest_point_sampling(denseSurf[:, :2], noRefPoints)
 refPoints = denseSurf[anchor_indices, :2]
 refNormals = denseNormals[anchor_indices]
@@ -142,14 +142,16 @@ allPoint = allPoint[:, :2]
 #Polyscope
 # ps.init()
 # ps.set_ground_plane_mode("none")
-# ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=True)
+# ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=False)
 
-# ps_cloud = ps.register_point_cloud("reference points", refPoints, radius=0.002, enabled=True)
-# ps_cloud.add_vector_quantity("anchor normals", refNormals, enabled=True)
+# ps_cloud = ps.register_point_cloud("reference points", refPoints, radius=0.002, enabled=False)
+# ps_cloud.add_vector_quantity("anchor normals", refNormals, enabled=False)
 # ps_cloud = ps.register_point_cloud("rand points", rand_points, radius=0.002, enabled=False)
 # ps_cloud = ps.register_point_cloud("surface points", surfPoint, radius=0.002, enabled=False)
 
-# ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002)
-# ps_cloudSurf.add_scalar_quantity("sdf values", S_surf, enabled=True)
+# ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002, enabled=False)
+# ps_cloudSurf.add_scalar_quantity("SDF", S_surf, enabled=False)
 
+# # ps.register_curve_network("boundary", vertsMeshNorm, edges="line", radius=0.001, color=(0.0, 0.0, 0.0))
+# ps.register_curve_network("boundary",  boundary_verts, remapped_edges, radius=0.0015, color=(0.0, 0.0, 0.0), enabled=True)
 # ps.show()

@@ -2,13 +2,15 @@ import polyscope as ps
 import meshio
 import numpy as np
 import igl
+import torch
+import time
 
-noRefPoints = 10000
+noRefPoints = 10
 noRandomPoints = 20000
 noSurfacePoints = 80000
 
 # Read mesh
-mesh = meshio.read("Meshes/3D/armadillo.obj")
+mesh = meshio.read("Meshes/3D/lucy.obj")
 
 vertsMesh = mesh.points
 facesMesh = mesh.cells_dict["triangle"]
@@ -60,17 +62,21 @@ def samplingBoundaryPoints(no, noise_ratio=0.875, sigma=0.01):
     return surfPoint 
 
 # Equally spread refpoints
-def farthest_point_sampling(points, k):
-    chosen = [np.random.randint(len(points))]
-    dist = np.full(len(points), np.inf)
+def farthest_point_sampling(points_np, k):
+    points = torch.from_numpy(points_np).cuda()
+    n_points = points.shape[0]
 
-    for _ in range(k - 1):
-        last = points[chosen[-1]]
-        d = np.linalg.norm(points - last, axis=1)
-        dist = np.minimum(dist, d)
-        chosen.append(np.argmax(dist))
+    chosen = torch.zeros(k, dtype=torch.long, device=points.device)
+    chosen[0] = torch.randint(0, n_points, (1,))
+    dist_sq = torch.full((n_points,), float('inf'), device=points.device)
 
-    return chosen
+    for i in range(1, k):
+        last = points[chosen[i - 1]]
+        d_sq = torch.sum((points - last) ** 2, dim=1)
+        dist_sq = torch.minimum(dist_sq, d_sq)
+        chosen[i] = torch.argmax(dist_sq)
+
+    return chosen.cpu().numpy()
 
 
 surfPoint = samplingBoundaryPoints(noSurfacePoints)
@@ -78,10 +84,16 @@ allPoint = np.vstack([rand_points, surfPoint])
 
 S_surf, _, _, _ = igl.signed_distance(allPoint, vertsMeshNorm, facesMesh)
 
-denseSurf, denseNormals = samplingSurfacePoints(5000)
+startTime = time.time()
+denseSurf, denseNormals = samplingSurfacePoints(5 * noRefPoints)
 anchor_indices = farthest_point_sampling(denseSurf, noRefPoints)
 refPoints = denseSurf[anchor_indices]
 refNormals = denseNormals[anchor_indices]
+
+elapsedTime = time.time() - startTime
+mins, secs = divmod(elapsedTime, 60)    
+        
+print(f"time {int(mins)}m {int(secs)}s")
 
 # Polyscope Visualization
 ps.init()

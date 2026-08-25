@@ -229,7 +229,7 @@ for level in contour_levels:
     contours = skimage.measure.find_contours(grid, level)
     
     if np.isclose(level, 0.0):
-        color = 'red'      
+        color = 'white'      
         linewidth = 3.5     
         label_text = 'Level 0'
     else:

@@ -39,11 +39,11 @@ optimizer = torch.optim.Adam(params, lr=1e-4)
 activation = torch.nn.ReLU()
 
 ceOptimizer = torch.optim.Adam(params, lr=1e-3)
-ceEpochs = 10
+ceEpochs = 50
 
 # Training
 batchSize = 128
-epochs = 100
+epochs = 200
 lm1 = 0.0
 sigma = 0.01
 h = 0.02

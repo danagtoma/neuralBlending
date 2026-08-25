@@ -83,7 +83,7 @@ for level in contour_levels:
     contours = skimage.measure.find_contours(grid, level)
     
     if np.isclose(level, 0.0):
-        color = 'red'      
+        color = 'white'      
         linewidth = 3.5     
         label_text = 'Level 0'
     else:
@@ -99,6 +99,6 @@ for level in contour_levels:
         ax.plot(c_world[:, 0], c_world[:, 1], color=color, linewidth=linewidth, zorder=4,label=label_text if i == 0 else "")
 
 ax.legend(loc='upper right')
-plt.savefig("neural_voronoi_diagram_labeled.png", dpi=300)
+plt.savefig("sirenMethod_contours.png", dpi=300)
 plt.show()
 print("done")

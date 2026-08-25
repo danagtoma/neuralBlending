@@ -71,7 +71,7 @@ for epoch in range(epochs):
         weights = softmax(finalLayer(out)) 
 
         #sparsemax
-        # weights = sparsemax(finalLayer(out)) 
+        # weights = entmax15(finalLayer(out)) 
 
         dist = x.unsqueeze(1) - pi.unsqueeze(0)
         sdfDist = torch.sum(dist * normals, dim=2) 
@@ -95,7 +95,7 @@ for epoch in range(epochs):
         weights_local = softmax(finalLayer(out_local))
 
         #sparsemax
-        # weights_local = sparsemax(finalLayer(out_local)) 
+        # weights_local = entmax15(finalLayer(out_local)) 
 
         w_i_xi = torch.diagonal(weights_local) 
         

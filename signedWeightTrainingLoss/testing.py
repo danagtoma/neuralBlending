@@ -66,7 +66,7 @@ with torch.no_grad():
     weights = softmax(finalLayer(out)) 
 
     #sparsemax
-    # weights = sparsemax(finalLayer(out)) 
+    # weights = entmax15(finalLayer(out)) 
 
     dist = pts.unsqueeze(1) - pi.unsqueeze(0)
     sdfDist = torch.sum(dist * normals, dim=2) 
@@ -126,74 +126,74 @@ for contour in world_contours:
 
 
 plt.savefig("neural_voronoi_diagram_labeled.png", dpi=300)
-plt.show()
+# plt.show()
 
 
 #influence plot
-cols = 6
-rows = (N + cols - 1) // cols
-fig, axes = plt.subplots(rows, cols, figsize=(20, 3 * rows))
-axes = axes.flatten()
+# cols = 6
+# rows = (N + cols - 1) // cols
+# fig, axes = plt.subplots(rows, cols, figsize=(20, 3 * rows))
+# axes = axes.flatten()
 
-for i in range(N):
-    w_i = (weights[:, i]).view(resolution, resolution).cpu().numpy()
+# for i in range(N):
+#     w_i = (weights[:, i]).view(resolution, resolution).cpu().numpy()
     
-    im = axes[i].imshow(w_i.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='gray', vmin=0.0, vmax=1.0)
+#     im = axes[i].imshow(w_i.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='gray', vmin=0.0, vmax=1.0)
     
-    anchor_pos = pi[i].cpu().numpy()
-    axes[i].scatter(anchor_pos[0], anchor_pos[1], color='red', s=20)
+#     anchor_pos = pi[i].cpu().numpy()
+#     axes[i].scatter(anchor_pos[0], anchor_pos[1], color='red', s=20)
     
-    cbar = fig.colorbar(im, ax=axes[i], orientation='vertical', pad=0.04, shrink=0.8)
-    cbar.ax.tick_params(labelsize=8)
+#     cbar = fig.colorbar(im, ax=axes[i], orientation='vertical', pad=0.04, shrink=0.8)
+#     cbar.ax.tick_params(labelsize=8)
     
-    axes[i].set_title(f"Anchor {i}")
-    axes[i].axis('off')
+#     axes[i].set_title(f"Anchor {i}")
+#     axes[i].axis('off')
 
-for j in range(i + 1, len(axes)):
-    axes[j].axis('off')
+# for j in range(i + 1, len(axes)):
+#     axes[j].axis('off')
 
-plt.tight_layout()
-plt.savefig("anchor_influence_grid.png", dpi=300)
+# plt.tight_layout()
+# plt.savefig("anchor_influence_grid.png", dpi=300)
 
 
 # weight*dist influence plot
 
-cols = 6
-rows = (N + cols - 1) // cols
-fig, axes = plt.subplots(rows, cols, figsize=(20, 3 * rows))
-axes = axes.flatten()
+# cols = 6
+# rows = (N + cols - 1) // cols
+# fig, axes = plt.subplots(rows, cols, figsize=(20, 3 * rows))
+# axes = axes.flatten()
 
-data_list = []
-max_abs = 0.0
+# data_list = []
+# max_abs = 0.0
 
-for i in range(N):
-    wd_i = (weights[:, i] * sdfDist[:, i]).view(resolution, resolution).cpu().numpy()
-    data_list.append(wd_i)
+# for i in range(N):
+#     wd_i = (weights[:, i] * sdfDist[:, i]).view(resolution, resolution).cpu().numpy()
+#     data_list.append(wd_i)
     
-    local_max = np.max(np.abs(wd_i))
-    if local_max > max_abs:
-        max_abs = local_max
+#     local_max = np.max(np.abs(wd_i))
+#     if local_max > max_abs:
+#         max_abs = local_max
 
-for i in range(N):
-    wd_i = data_list[i]
+# for i in range(N):
+#     wd_i = data_list[i]
 
-    im = axes[i].imshow(wd_i.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='PiYG', vmin=-max_abs, vmax=max_abs)
+#     im = axes[i].imshow(wd_i.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='PiYG', vmin=-max_abs, vmax=max_abs)
     
-    anchor_pos = pi[i].cpu().numpy()
-    axes[i].scatter(anchor_pos[0], anchor_pos[1], color='red', s=20)
+#     anchor_pos = pi[i].cpu().numpy()
+#     axes[i].scatter(anchor_pos[0], anchor_pos[1], color='red', s=20)
     
-    cbar = fig.colorbar(im, ax=axes[i], orientation='vertical', pad=0.04, shrink=0.8)
-    cbar.ax.tick_params(labelsize=8)
+#     cbar = fig.colorbar(im, ax=axes[i], orientation='vertical', pad=0.04, shrink=0.8)
+#     cbar.ax.tick_params(labelsize=8)
 
-    axes[i].set_title(f"Anchor {i}")
-    axes[i].axis('off')
+#     axes[i].set_title(f"Anchor {i}")
+#     axes[i].axis('off')
 
-for j in range(i + 1, len(axes)):
-    axes[j].axis('off')
+# for j in range(i + 1, len(axes)):
+#     axes[j].axis('off')
 
 
-plt.tight_layout(pad=2.0)
-plt.savefig("weightDist_influence_grid.png", dpi=300)
+# plt.tight_layout(pad=2.0)
+# plt.savefig("weightDist_influence_grid.png", dpi=300)
 
 
 
@@ -211,7 +211,7 @@ min_count = int(np.min(influence_grid))
 
 im = ax.imshow(influence_grid.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='viridis', interpolation='nearest', vmin=min_count, vmax=max_count)
 
-cbar = plt.colorbar(im, ax=ax, ticks=range(min_count, max_count + 1))
+cbar = plt.colorbar(im, ax=ax, ticks=np.linspace(min_count, max_count, 5, dtype=int))
 cbar.ax.tick_params(labelsize=10)
 
 anchors_np = pi.detach().cpu().numpy()

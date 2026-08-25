@@ -1,3 +1,4 @@
-Gradient Norm: Mean: 1.0099159479141235, Std Dev: 0.17380501329898834
-Time taken to create the SDF: 2m 28s
-Max number of anchors influence a point: lazy computing: 72
+Time taken to create the SDF: 2m 29s
+Max number of anchors influence a point: lazy computing: 84
+Gradient Norm: Mean: 1.0060734748840332, Std Dev: 0.18309561908245087
+Time taken to create the SDF: 1m 16s
