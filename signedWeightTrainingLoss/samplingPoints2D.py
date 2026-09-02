@@ -139,10 +139,24 @@ refPoints = denseSurf[anchor_indices, :2]
 refNormals = denseNormals[anchor_indices]
 allPoint = allPoint[:, :2]
 
+# 2D surface
+be = igl.boundary_facets(facesMesh)
+if isinstance(be, tuple):
+    be = be[0]
+be = np.array(be, dtype=np.int64)
+
+unique_boundary_idx, remapped_edges = np.unique(be, return_inverse=True)
+boundary_verts = vertsMeshNorm[unique_boundary_idx]
+remapped_edges = remapped_edges.reshape(be.shape)
+
 #Polyscope
 ps.init()
 ps.set_ground_plane_mode("none")
 ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=True)
+
+boundary_curve = ps.register_curve_network("boundary edges", boundary_verts, remapped_edges, enabled=True)
+boundary_curve.set_color((0, 0, 0))  
+boundary_curve.set_radius(0.0012)            
 
 ps_cloud = ps.register_point_cloud("reference points", refPoints, radius=0.002, enabled=True)
 ps_cloud.add_vector_quantity("anchor normals", refNormals, enabled=True)

@@ -13,7 +13,7 @@ pts = np.stack([X.ravel(), Y.ravel()], axis=1)
 #exponential implicit weights
 fig2, ax2 = plt.subplots(figsize=(11, 10))
 
-h = 0.05 
+h = 0.05
 
 dist_matrix = np.linalg.norm(pts[:, None, :] - refPoints[None, :, :], axis=2)
 
@@ -27,15 +27,25 @@ sdfDist = np.sum(x_minus_pi * refNormals[None, :, :], axis=2)
 
 F_x = np.sum(norm_weights * sdfDist, axis=1).reshape(resolution, resolution)
 
-im2 = ax2.imshow(F_x.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='viridis')
-ax2.contour(F_x.T, levels=[0], colors='black', extent=[-bound, bound, -bound, bound])
-ax2.scatter(refPoints[:, 0], refPoints[:, 1], c='white', edgecolors='black', s=20, zorder=5)
-fig2.colorbar(im2, ax=ax2)
-ax2.set_xlabel("X")
-ax2.set_ylabel("Y")
+im2 = ax2.imshow(F_x.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='viridis',)
+
+levels = np.linspace(-0.2, 0.2, 10)
+non_zero_levels = levels[~np.isclose(levels, 0.0)]
+
+cs = ax2.contour(X, Y, F_x, levels=non_zero_levels, colors='white', alpha=0.6, linewidths=1.0, linestyles='solid', zorder=3,)
+
+ax2.contour(X, Y, F_x, levels=[0.0], colors='white', linestyles='solid', linewidths=3.5, zorder=4,)
+
+ax2.set_xticks([])
+ax2.set_yticks([])
+
+ax2.set_xlim(-bound, bound)
+ax2.set_ylim(-bound, bound)
+ax2.set_aspect('equal')
 
 plt.tight_layout()
-plt.savefig("ideal_exponential_weights.png", dpi=300)
+plt.savefig('ideal_exponential_weights_level_sets.png', dpi=300)
+plt.show()
 
 
 #voronoi weights

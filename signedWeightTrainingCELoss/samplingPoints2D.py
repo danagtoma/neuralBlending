@@ -152,6 +152,6 @@ allPoint = allPoint[:, :2]
 # ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002, enabled=False)
 # ps_cloudSurf.add_scalar_quantity("SDF", S_surf, enabled=False)
 
-# # ps.register_curve_network("boundary", vertsMeshNorm, edges="line", radius=0.001, color=(0.0, 0.0, 0.0))
+# ps.register_curve_network("boundary", vertsMeshNorm, edges="line", radius=0.001, color=(0.0, 0.0, 0.0))
 # ps.register_curve_network("boundary",  boundary_verts, remapped_edges, radius=0.0015, color=(0.0, 0.0, 0.0), enabled=True)
 # ps.show()

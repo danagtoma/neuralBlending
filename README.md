@@ -2,6 +2,9 @@
 
 ## Table of Contents <!-- omit from toc -->
 - [Directory Structure](#directory-structure)
+  - [Core Codebase](#core-codebase)
+  - [Experimental Code (`otherExperiments/`)](#experimental-code-otherexperiments)
+- [References](#references)
 - [Experiments Using Locality Regularisation](#experiments-using-locality-regularisation)
   - [A. Changing the Number of Anchors and Epochs](#a-changing-the-number-of-anchors-and-epochs)
     - [1. 100 Anchors](#1-100-anchors)
@@ -14,6 +17,7 @@
   - [B. Changing the Number of ceEpochs (200 Anchors)](#b-changing-the-number-of-ceepochs-200-anchors)
 - [Results Using Only Cross-Entropy Loss](#results-using-only-cross-entropy-loss)
   - [200 Anchors](#200-anchors)
+- [Experiments with SIREN Neural Network](#experiments-with-siren-neural-network)
 - [Experiments with Gaussian Activation Function](#experiments-with-gaussian-activation-function)
   - [100 Epochs](#100-epochs)
   - [500 Epochs](#500-epochs)
@@ -31,13 +35,44 @@
 
 ## Directory Structure
 
+### Core Codebase
 * **abacaOutput**: Results of the 3D experiments.
 * **signedWeightTrainingCELoss**: Scripts for training and testing anchor weights on 2D meshes using cross-entropy pretraining.
 * **signedWeightTrainingCELoss3D**: Scripts for training and testing anchor weights on 3D meshes using cross-entropy pretraining.
-* **signedWeightTrainingCELoss3DSiren**: Scripts for training and testing SIREN models on 3D meshes.
-* **signedWeightTrainingCELossSiren**: Scripts for training and testing SIREN models on 2D meshes.
+* **signedWeightTrainingCELoss3DSiren**: Scripts for training and testing SIREN networks \[1] on 3D meshes.
+* **signedWeightTrainingCELossSiren**: Scripts for training and testing SIREN networks \[1] on 2D meshes.
 * **signedWeightTrainingLoss**: Scripts for training and testing anchor weights on 2D meshes with different architectures and loss functions.
-* **otherTests**: Miscellaneous and unorganised test scripts.
+* **sineTrainingLoss**: Scripts for training SIREN networks \[1] (periodic sine activations) with locality loss.
+
+### Experimental Code (`otherExperiments/`)
+* **scripts**: Scripts run on Abaca.
+* **signedWeightTraining**: Scripts for single-stage 2D training without auxiliary loss or pretraining.
+* **signedWeightTrainingCERegularisation**: Scripts for single-stage 2D training using cross-entropy loss.
+* **signedWeightTrainingSigma**: Scripts for 2D training with ReLU or Sigmoid activation on the final layer.
+* **signedWeightTrainingSigmaLoss**: Scripts for testing locality loss with ReLU or Sigmoid activation on the final layer.
+* **signedWeightTrainingSparsemax**: Scripts for evaluating Softmax and Entmax variants as final-layer activation functions \[3].
+* **training2D**: Scripts for training a 2D model with 1-Lipschitz loss (reproducing the *1-Lipschitz Neural Distance Fields \[2]*  paper).
+* **training3D**: Scripts for training a 3D model with 1-Lipschitz loss (reproducing the *1-Lipschitz Neural Distance Fields \[2]* paper).
+* **weightTrainingMAE**: Scripts for testing Mean Absolute Error (MAE) loss in the second stage.
+* **weightTrainingRelu**: Scripts for testing mean loss on unsigned distance fields (UDFs) with ReLU activations.
+* **weightTrainingSigma**: Scripts for testing Sigmoid and ReLU as final-layer activations on unsigned distance fields (UDFs).
+* **weightTrainingSiren**: Scripts for training SIREN networks \[1] on unsigned distance fields (UDFs).
+
+---
+
+## References
+
+1. **SIREN (Periodic Activation Functions):**  
+  Vincent Sitzmann, Julien Martel, Alexander Bergman, David Lindell, and Gordon Wetzstein. Implicit Neural Representations with Periodic Activation Functions. In *Advances in Neural Information Processing Systems*, volume 33, pages 7462–7473. Curran Associates, Inc., 2020.  
+
+2. **1-Lipschitz Neural Distance Fields:**  
+  Guillaume Coiffier and Louis Béthune. 1-Lipschitz Neural Distance Fields. *Computer Graphics Forum*, 43(5):e15128, 2024.
+
+3. **Sparsemax:**  
+  André F. T. Martins and Ramón Fernandez Astudillo. From softmax to sparsemax: A sparse model of attention and multi-label classification. *CoRR*, abs/1602.02068, 2016.
+
+1. **Entmax / Sparse Sequence-to-Sequence Models:**  
+  Ben Peters, Vlad Niculae, and André F. T. Martins. Sparse sequence-to-sequence models. *CoRR*, abs/1905.05702, 2019.
 
 ---
 
@@ -227,6 +262,37 @@ Experiments using exclusively cross-entropy pretraining for the weights.
     <b>100 ceEpochs</b>
   </div>
 </div>
+
+---
+## Experiments with SIREN Neural Network
+Experiments using a SIREN architecture (sinusoidal activation functions) combined with locality regularisation loss.  
+[Link to code](sineTrainingLoss)
+
+**Hyperparameters:**
+* `sigma` = 0.01
+* `h` = 0.2
+* `lm` = 0.1
+* `noQueryPoints` = 10000
+* `anchors` = 30
+* `hidden` = 128
+* `noLayers` = 6
+* `batchSize` = 250
+* `epochs` = 300
+* `w0` = 5
+* `c` = 6
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/dragon/neural_voronoi_diagram_labeled.png" style="width: 100%; max-width: 400px;" /><br/>
+    <b>Spatial partition and zero-level set</b>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <img src="sineTrainingLoss/img/dragon/anchor_influence_count.png" style="width: 100%; max-width: 300px;" /><br/>
+    <b>Distribution of active anchor counts</b>
+  </div>
+</div>
+
 
 ---
 

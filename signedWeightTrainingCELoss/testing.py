@@ -116,12 +116,37 @@ plt.colorbar(im, ax=ax2, label='Predicted Distance')
 for contour in world_contours:
     ax2.plot(contour[:, 0], contour[:, 1], color='white', linewidth=2, zorder=4)
 
+for ax in (ax1, ax2):
+    ax.set_xticks([])
+    ax.set_yticks([])
 
 plt.savefig("neural_voronoi_diagram_labeled.png", dpi=300)
 plt.show()
 
 
-#influence plot
+# One anchor influence
+anchor_idx = 81
+
+w_i = weights[:, anchor_idx].view(resolution, resolution).cpu().numpy()
+anchor_pos = pi[anchor_idx].cpu().numpy()
+
+fig, ax = plt.subplots(figsize=(6, 5))
+
+im = ax.imshow( w_i.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='gray', vmin=0.0, vmax=1.0)
+
+ax.scatter( anchor_pos[0], anchor_pos[1], color='red', s=80, zorder=5)
+
+ax.set_xticks([])
+ax.set_yticks([])
+ax.set_xlim([-bound, bound])
+ax.set_ylim([-bound, bound])
+ax.set_aspect('equal')
+
+plt.tight_layout()
+plt.savefig(f"anchor_{anchor_idx}_influence.png", dpi=300, bbox_inches='tight')
+
+
+# influence plot
 cols = 6
 rows = (N + cols - 1) // cols
 fig, axes = plt.subplots(rows, cols, figsize=(20, 3 * rows))
