@@ -48,11 +48,26 @@ ys = np.linspace(-bound, bound, resolution)
 grid = np.zeros((resolution, resolution), np.float32)
 voronoi_grid = np.zeros((resolution, resolution), np.float32)
 
+#one anchor moved
+anchor_to_move = 67
+shift_vector = torch.tensor([-1.3, 0.5], dtype=torch.float32, device=device) 
+
+pi_modified = pi.clone()
+pi_modified[anchor_to_move] += shift_vector
+
+
 with torch.no_grad():
     X, Y = np.meshgrid(xs, ys, indexing='ij')
         
     pts = np.stack([X.ravel(), Y.ravel()], axis=1)
     pts = torch.tensor(pts, dtype=torch.float32, device=device)
+
+    #FFD X/2
+    pts_ffd = pts.clone()
+    pts_ffd[:, 0] = pts_ffd[:, 0] * 0.5
+
+    pi_ffd = pi.clone()
+    pi_ffd[:, 0] = pi_ffd[:, 0] * 0.5
 
     out = pts
     for l in layers:
@@ -270,6 +285,46 @@ for level in contour_levels:
         ax.plot(c_world[:, 0], c_world[:, 1], color=color, linewidth=linewidth, zorder=4,label=label_text if i == 0 else "")
 
 ax.legend(loc='upper right')
+ax.set_xticks([])
+ax.set_yticks([])
 plt.savefig("siren_contours.png", dpi=300)
+
+
+# one anchor move
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 8))
+
+# Voronoi regions
+ax1.imshow(voronoi_grid.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='nipy_spectral', interpolation='nearest',)
+
+# Anchor points
+anchors_np = pi_modified.detach().cpu().numpy()
+orig_p = pi[anchor_to_move].detach().cpu().numpy()
+moved_p = anchors_np[anchor_to_move]
+
+for i, p in enumerate(anchors_np):
+    if i == anchor_to_move:
+        continue
+    elif dead[i]:
+        ax1.scatter(p[0], p[1], c='red', edgecolors='black', s=30, zorder=3)
+    else:
+        ax1.scatter(p[0], p[1], c='white', edgecolors='black', s=30, zorder=3)
+
+ax1.scatter(orig_p[0], orig_p[1], c='black', edgecolors='black', s=30, zorder=6,)
+
+ax1.scatter(moved_p[0], moved_p[1], c='cyan', edgecolors='black', s=30, zorder=6,)
+
+im = ax2.imshow( grid.T, origin='lower', extent=[-bound, bound, -bound, bound], cmap='viridis',)
+plt.colorbar(im, ax=ax2, label='Predicted Distance')
+
+for contour in world_contours:
+    ax2.plot(contour[:, 0], contour[:, 1], color='white', linewidth=2, zorder=4)
+
+ax2.scatter(moved_p[0], moved_p[1], c='cyan', edgecolors='black', s=30, zorder=5) 
+
+for ax in (ax1, ax2):
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+plt.savefig("anchorMoved.png", dpi=300)
 plt.show()
 print("done")

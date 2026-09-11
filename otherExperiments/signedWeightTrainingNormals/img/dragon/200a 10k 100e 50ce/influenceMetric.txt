@@ -1,0 +1,1 @@
+Mean cosine alignment with GT normals: 0.9920

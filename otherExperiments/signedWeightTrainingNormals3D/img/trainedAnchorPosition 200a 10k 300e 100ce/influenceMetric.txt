@@ -1,0 +1,2 @@
+Mean cosine alignment with GT normals: 0.9779Anchor position drift -> Mean: 0.024382, Max: 0.351367
+Max number of anchors influence a point: lazy computing: 57

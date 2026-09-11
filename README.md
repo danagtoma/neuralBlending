@@ -48,6 +48,8 @@
 * **scripts**: Scripts run on Abaca.
 * **signedWeightTraining**: Scripts for single-stage 2D training without auxiliary loss or pretraining.
 * **signedWeightTrainingCERegularisation**: Scripts for single-stage 2D training using cross-entropy loss.
+* **signedWeightTrainingNormals**: Scripts for training and testing 2D normals as optimization parameters.
+* **signedWeightTrainingNormals3D**: Scripts for training and testing 3D normals as optimization parameters.
 * **signedWeightTrainingSigma**: Scripts for 2D training with ReLU or Sigmoid activation on the final layer.
 * **signedWeightTrainingSigmaLoss**: Scripts for testing locality loss with ReLU or Sigmoid activation on the final layer.
 * **signedWeightTrainingSparsemax**: Scripts for evaluating Softmax and Entmax variants as final-layer activation functions \[3].
@@ -57,6 +59,11 @@
 * **weightTrainingRelu**: Scripts for testing mean loss on unsigned distance fields (UDFs) with ReLU activations.
 * **weightTrainingSigma**: Scripts for testing Sigmoid and ReLU as final-layer activations on unsigned distance fields (UDFs).
 * **weightTrainingSiren**: Scripts for training SIREN networks \[1] on unsigned distance fields (UDFs).
+* **`signedWeightTrainingCELoss/img`**
+  * lessThin: Visual results and reconstructed contours for the *lessThin* mesh.
+  * thin: Visual results and reconstructed contours for the *thin* mesh.
+  * thinner: Visual results and reconstructed contours for the *thinner* mesh.
+  * deformation: Visual results for anchor position movement and FFD spatial deformations.
 
 ---
 

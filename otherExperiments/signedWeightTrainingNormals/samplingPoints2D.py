@@ -4,8 +4,8 @@ import numpy as np
 import igl
 
 noRefPoints = 200
-noRandomPoints = 2000
-noSurfacePoints = 8000
+noRandomPoints = 20000
+noSurfacePoints = 80000
 
 #Read mesh
 mesh = meshio.read("Meshes/2D/dragon.obj")
@@ -140,15 +140,18 @@ refNormals = denseNormals[anchor_indices]
 allPoint = allPoint[:, :2]
 
 #Polyscope
-ps.init()
-ps.set_ground_plane_mode("none")
-ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=False)
+# ps.init()
+# ps.set_ground_plane_mode("none")
+# ps.register_surface_mesh("mesh", vertsMeshNorm, facesMesh, enabled=False)
 
-ps_cloud = ps.register_point_cloud("reference points", refPoints, radius=0.002, enabled=True)
-ps_cloud.add_vector_quantity("anchor normals", refNormals, enabled=True)
-ps_cloud = ps.register_point_cloud("rand points", rand_points, radius=0.002, enabled=False)
-ps_cloud = ps.register_point_cloud("surface points", surfPoint, radius=0.002, enabled=False)
+# ps_cloud = ps.register_point_cloud("reference points", refPoints, radius=0.002, enabled=False)
+# ps_cloud.add_vector_quantity("anchor normals", refNormals, enabled=False)
+# ps_cloud = ps.register_point_cloud("rand points", rand_points, radius=0.002, enabled=False)
+# ps_cloud = ps.register_point_cloud("surface points", surfPoint, radius=0.002, enabled=False)
 
-ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002, enabled=False)
-ps_cloudSurf.add_scalar_quantity("SDF", S_surf, enabled=False)
-ps.show()
+# ps_cloudSurf = ps.register_point_cloud("all points", allPoint, radius=0.002, enabled=False)
+# ps_cloudSurf.add_scalar_quantity("SDF", S_surf, enabled=False)
+
+# ps.register_curve_network("boundary", vertsMeshNorm, edges="line", radius=0.001, color=(0.0, 0.0, 0.0))
+# ps.register_curve_network("boundary",  boundary_verts, remapped_edges, radius=0.0015, color=(0.0, 0.0, 0.0), enabled=True)
+# ps.show()
