@@ -64,6 +64,9 @@
   * thin: Visual results and reconstructed contours for the *thin* mesh.
   * thinner: Visual results and reconstructed contours for the *thinner* mesh.
   * deformation: Visual results for anchor position movement and FFD spatial deformations.
+  * craftLogo: Visual results and reconstructed contours for the CRAFT logo.
+* **`signedWeightTrainingCELoss3D/img`**
+  * pruning: Graphs for testing anchors influnce.
 
 ---
 
