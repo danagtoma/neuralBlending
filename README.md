@@ -1,4 +1,12 @@
 # Neural Distance Blending for Implicit Geometry Representation <!-- omit from toc -->
+A deep learning project for neural implicit geometry representation using signed distance fields.
+
+## General Information
+In this project, I explored neural implicit representations for modelling complex 2D and 3D geometries using signed distance fields (SDFs). My goal was to investigate anchor-based representations and different neural network training strategies to improve geometric reconstruction, including cross-entropy pre-training and locality regularisation.
+
+## Technologies Used
+- Python
+- PyTorch
 
 ## Table of Contents <!-- omit from toc -->
 - [Directory Structure](#directory-structure)
@@ -31,7 +39,6 @@
 - [Results for 3D Meshes](#results-for-3d-meshes)
 - [Lucy (High-Resolution Reconstruction)](#lucy-high-resolution-reconstruction)
 
----
 
 ## Directory Structure
 
@@ -68,7 +75,6 @@
 * **`signedWeightTrainingCELoss3D/img`**
   * pruning: Graphs for testing anchors influnce.
 
----
 
 ## References
 
@@ -84,7 +90,6 @@
 1. **Entmax / Sparse Sequence-to-Sequence Models:**  
   Ben Peters, Vlad Niculae, and André F. T. Martins. Sparse sequence-to-sequence models. *CoRR*, abs/1905.05702, 2019.
 
----
 
 ## Experiments Using Locality Regularisation
 Experiments conducted using a locality regularisation loss during SDF training.  
@@ -192,7 +197,7 @@ Experiments conducted using a locality regularisation loss during SDF training.
   </div>
 </div>
 
----
+
 
 ## Experiments with Cross-Entropy Loss
 Experiments conducted with weight pretraining via cross-entropy loss.  
@@ -244,7 +249,7 @@ Experiments conducted with weight pretraining via cross-entropy loss.
   </div>
 </div>
 
----
+
 
 ## Results Using Only Cross-Entropy Loss
 Experiments using exclusively cross-entropy pretraining for the weights.
@@ -273,7 +278,7 @@ Experiments using exclusively cross-entropy pretraining for the weights.
   </div>
 </div>
 
----
+
 ## Experiments with SIREN Neural Network
 Experiments using a SIREN architecture (sinusoidal activation functions) combined with locality regularisation loss.  
 [Link to code](sineTrainingLoss)
@@ -304,7 +309,7 @@ Experiments using a SIREN architecture (sinusoidal activation functions) combine
 </div>
 
 
----
+
 
 ## Experiments with Gaussian Activation Function
 Experiments using a Gaussian activation function on the final layer.  
@@ -353,7 +358,7 @@ Experiments using a Gaussian activation function on the final layer.
   </div>
 </div>
 
----
+
 
 ## Experiments with Sparsemax and Entmax Activations
 Experiments evaluating Sparsemax and Entmax as final-layer activation functions.  
@@ -395,7 +400,7 @@ Experiments evaluating Sparsemax and Entmax as final-layer activation functions.
   </div>
 </div>
 
----
+
 
 ## Comparison: Cross-Entropy, SDF, and Combined Training
 
@@ -428,7 +433,6 @@ Experiments evaluating Sparsemax and Entmax as final-layer activation functions.
   </div>
 </div>
 
----
 
 ## SIREN Method for 2D Meshes
 Experiments conducted using the SIREN implicit representation on 2D meshes.  
@@ -455,7 +459,7 @@ Experiments conducted using the SIREN implicit representation on 2D meshes.
   </div>
 </div>
 
----
+
 
 ## Ideal Voronoi Diagram and Exponential Weights
 
@@ -469,7 +473,7 @@ Experiments conducted using the SIREN implicit representation on 2D meshes.
   </div>
 </div>
 
----
+
 
 ## Results for 2D Meshes
 **Hyperparameters:**
@@ -502,7 +506,7 @@ Experiments conducted using the SIREN implicit representation on 2D meshes.
   </div>
 </div>
 
----
+
 
 ## Results for 3D Meshes
 Trained on 15,000 anchors and 100,000 random query points.
@@ -532,7 +536,7 @@ Trained on 15,000 anchors and 100,000 random query points.
   <img src="abacaOutput/15k 100k 100ce 1000e/Buckyballs/screenshot_000000.png" width="400">
 </p>
 
----
+
 
 ## Lucy (High-Resolution Reconstruction)
 Trained on 100,000 anchors and 1,000,000 random query points.
